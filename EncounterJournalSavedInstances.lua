@@ -207,7 +207,7 @@ local function UpdateSavedInstances()
 				table.insert(savedInstances[L['Pandaria']], {
 					bosses = worldBosses_Pandaria,
 					instanceName = L['Pandaria'],
-					difficulty = difficulty,
+					difficulty = 'normal',
 					difficultyName = L['World Bosses'],
 					maxBosses = maxBosses,
 					defeatedBosses = defeatedBosses,
@@ -224,7 +224,7 @@ local function UpdateSavedInstances()
 				table.insert(savedInstances[L['Draenor']], {
 					bosses = worldBosses_Draenor,
 					instanceName = L['Draenor'],
-					difficulty = difficulty,
+					difficulty = 'normal',
 					difficultyName = L['World Bosses'],
 					maxBosses = maxBosses,
 					defeatedBosses = defeatedBosses,
@@ -250,9 +250,9 @@ local function UpdateSavedInstances()
 			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(44287) and 1 or 0)
 			if defeatedBosses > 0 then
 				table.insert(savedInstances[L['Broken Isles']], {
-					bosses = worldBosses_Draenor,
+					bosses = worldBosses_BrokenIsles,
 					instanceName = L['Broken Isles'],
-					difficulty = difficulty,
+					difficulty = 'normal',
 					difficultyName = L['World Bosses'],
 					maxBosses = maxBosses,
 					defeatedBosses = defeatedBosses,
@@ -269,9 +269,9 @@ local function UpdateSavedInstances()
 			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(49196) and 1 or 0)
 			if defeatedBosses > 0 then
 				table.insert(savedInstances[L['Invasion Points']], {
-					bosses = worldBosses_Draenor,
+					bosses = worldBosses_InvasionPoints,
 					instanceName = L['Invasion Points'],
-					difficulty = difficulty,
+					difficulty = 'normal',
 					difficultyName = L['World Bosses'],
 					maxBosses = maxBosses,
 					defeatedBosses = defeatedBosses,

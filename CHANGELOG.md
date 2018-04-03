@@ -1,3 +1,6 @@
+### 1.0.1
+- [x] Fixed some Worldbosses typos
+
 ### 1.0.0
 - [x] Initial fork commit
 - [x] Fixed Sunwell, SSC and Tempest Keep instances
