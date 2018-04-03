@@ -1,0 +1,6 @@
+## Interface: 70300
+## Title: Encounter Journal Saved Instances
+## Author: Meivyn
+## Version: 1.0.0
+
+EncounterJournalSavedInstances.lua
