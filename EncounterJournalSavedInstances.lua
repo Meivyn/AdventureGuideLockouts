@@ -6,6 +6,8 @@ local L = {
 	['Serpentshrine Cavern'] = 'Serpentshrine Cavern',
 	['Tempest Keep'] = 'Tempest Keep',
 	['The Eye'] = 'The Eye',
+	['Black Temple'] = 'Black Temple',
+	['The Black Temple'] = 'The Black Temple',
 	['The Sunwell'] = 'The Sunwell',
 	['Sunwell Plateau'] = 'Sunwell Plateau',
 	['Pandaria'] = 'Pandaria',
@@ -27,6 +29,8 @@ if locale == 'frFR' then
 		['Serpentshrine Cavern'] = 'Caverne du sanctuaire du Serpent',
 		['Tempest Keep'] = 'Donjon de la Tempête',
 		['The Eye'] = 'L’Œil',
+		['Black Temple'] = 'Temple noir',
+		['The Black Temple'] = 'Le Temple noir',
 		['The Sunwell'] = 'Le Puits de soleil',
 		['Sunwell Plateau'] = 'Plateau du Puits de soleil',
 		['Pandaria'] = 'Pandarie',
@@ -55,6 +59,9 @@ local function UpdateSavedInstances()
 		-- Fix for Tempest Keep
 		elseif instanceName == L['Tempest Keep'] then
 			savedInstances[L['The Eye']] = {}
+		-- Fix for Black Temple
+		elseif instanceName == L['Black Temple'] then
+			savedInstances[L['The Black Temple']] = {}
 		-- Fix for Sunwell
 		elseif instanceName == L['The Sunwell'] then
 			savedInstances[L['Sunwell Plateau']] = {}
@@ -150,6 +157,22 @@ local function UpdateSavedInstances()
 		-- Fix for Tempest Keep
 		elseif locked and instanceName == L['Tempest Keep'] then
 			table.insert(savedInstances[L['The Eye']], {
+				instanceID = instanceID,
+				bosses = bosses,
+				instanceName = instanceName,
+				instanceDifficulty = instanceDifficulty,
+				difficulty = difficulty,
+				difficultyName = difficultyName,
+				maxBosses = maxBosses,
+				defeatedBosses = defeatedBosses,
+				instanceReset = instanceReset,
+				progress = defeatedBosses..'/'..maxBosses,
+				complete = locked and defeatedBosses == maxBosses,
+				locked = locked
+			})
+		-- Fix for Black Temple
+		elseif locked and instanceName == L['Black Temple'] then
+			table.insert(savedInstances[L['The Black Temple']], {
 				instanceID = instanceID,
 				bosses = bosses,
 				instanceName = instanceName,
