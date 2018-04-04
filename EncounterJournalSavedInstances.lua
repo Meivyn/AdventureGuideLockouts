@@ -62,7 +62,7 @@ local function UpdateSavedInstances()
 		-- Fix for Tempest Keep
 		elseif instanceName == L['Tempest Keep'] then
 			savedInstances[L['The Eye']] = {}
-		-- Fix for Black Temple
+		-- Fix for Black Temple french clients
 		elseif instanceName == L['Black Temple'] then
 			savedInstances[L['The Black Temple']] = {}
 		-- Fix for Sunwell
@@ -189,7 +189,7 @@ local function UpdateSavedInstances()
 				complete = locked and defeatedBosses == maxBosses,
 				locked = locked
 			})
-		-- Fix for Black Temple
+		-- Fix for Black Temple french clients
 		elseif locked and instanceName == L['Black Temple'] then
 			table.insert(savedInstances[L['The Black Temple']], {
 				instanceID = instanceID,

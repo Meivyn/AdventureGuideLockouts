@@ -13,3 +13,5 @@
 - [x] Fixed Sunwell, SSC and Tempest Keep tracking
 - [x] Added LFR tracking
 - [x] Added Worldbosses tracking
+- [x] Removed the timer of lockouts weekly reset
+- [x] New display for tooltips
