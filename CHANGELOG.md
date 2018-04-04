@@ -1,3 +1,7 @@
+### 1.0.3
+- [x] Fixed Black Temple tracking for french clients
+- [x] Fixed AQ40 tracking for english clients
+
 ### 1.0.2
 - [x] Fixed Black Temple tracking
 

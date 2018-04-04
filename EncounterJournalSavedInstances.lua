@@ -2,12 +2,12 @@ local L = {
 	['Defeated'] = 'Defeated',
 	['Available'] = 'Available',
 	['Assault on Violet Hold'] = 'Assault on Violet Hold',
+	['Temple of Ahn\'Qiraj'] = 'Temple of Ahn\'Qiraj',
+	['Ahn\'Qiraj Temple'] = 'Ahn\'Qiraj Temple',
 	['Coilfang: Serpentshrine Cavern'] = 'Coilfang: Serpentshrine Cavern',
 	['Serpentshrine Cavern'] = 'Serpentshrine Cavern',
 	['Tempest Keep'] = 'Tempest Keep',
 	['The Eye'] = 'The Eye',
-	['Black Temple'] = 'Black Temple',
-	['The Black Temple'] = 'The Black Temple',
 	['The Sunwell'] = 'The Sunwell',
 	['Sunwell Plateau'] = 'Sunwell Plateau',
 	['Pandaria'] = 'Pandaria',
@@ -53,8 +53,11 @@ local function UpdateSavedInstances()
 	savedInstances = {}
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, instanceID, instanceReset, instanceDifficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+		-- Fix for AQ40 english clients
+		if instanceName == L['Ahn\'Qiraj Temple'] then
+			savedInstances[L['Temple of Ahn\'Qiraj']] = {}
 		-- Fix for SSC
-		if instanceName == L['Coilfang: Serpentshrine Cavern'] then
+		elseif instanceName == L['Coilfang: Serpentshrine Cavern'] then
 			savedInstances[L['Serpentshrine Cavern']] = {}
 		-- Fix for Tempest Keep
 		elseif instanceName == L['Tempest Keep'] then
@@ -138,8 +141,24 @@ local function UpdateSavedInstances()
 			maxBosses = 3
 		end
 
+		-- Fix for AQ40 english clients
+		if locked and instanceName == L['Ahn\'Qiraj Temple'] then
+			table.insert(savedInstances[L['Temple of Ahn\'Qiraj']], {
+				instanceID = instanceID,
+				bosses = bosses,
+				instanceName = instanceName,
+				instanceDifficulty = instanceDifficulty,
+				difficulty = difficulty,
+				difficultyName = difficultyName,
+				maxBosses = maxBosses,
+				defeatedBosses = defeatedBosses,
+				instanceReset = instanceReset,
+				progress = defeatedBosses..'/'..maxBosses,
+				complete = locked and defeatedBosses == maxBosses,
+				locked = locked
+			})
 		-- Fix for SSC
-		if locked and instanceName == L['Coilfang: Serpentshrine Cavern'] then
+		elseif locked and instanceName == L['Coilfang: Serpentshrine Cavern'] then
 			table.insert(savedInstances[L['Serpentshrine Cavern']], {
 				instanceID = instanceID,
 				bosses = bosses,
