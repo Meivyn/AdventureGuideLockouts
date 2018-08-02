@@ -1,24 +1,16 @@
+local locale = GetLocale()
+
 local L = {
 	['Defeated'] = 'Defeated',
 	['Available'] = 'Available',
 	['Assault on Violet Hold'] = 'Assault on Violet Hold',
-	['Temple of Ahn\'Qiraj'] = 'Temple of Ahn\'Qiraj',
 	['Ahn\'Qiraj Temple'] = 'Ahn\'Qiraj Temple',
 	['Coilfang: Serpentshrine Cavern'] = 'Coilfang: Serpentshrine Cavern',
-	['Serpentshrine Cavern'] = 'Serpentshrine Cavern',
 	['Tempest Keep'] = 'Tempest Keep',
-	['The Eye'] = 'The Eye',
 	['The Sunwell'] = 'The Sunwell',
-	['Sunwell Plateau'] = 'Sunwell Plateau',
-	['Pandaria'] = 'Pandaria',
-	['Draenor'] = 'Draenor',
-	['Broken Isles'] = 'Broken Isles',
-	['Invasion Points'] = 'Invasion Points',
 	['August Celestials'] = 'August Celestials',
 	['World Bosses'] = 'World Bosses'
 }
-
-local locale = GetLocale()
 
 if locale == 'frFR' then
 	L = {
@@ -26,17 +18,9 @@ if locale == 'frFR' then
 		['Available'] = 'Disponible',
 		['Assault on Violet Hold'] = 'L’assaut sur le fort Pourpre',
 		['Coilfang: Serpentshrine Cavern'] = 'Glissecroc : caverne du sanctuaire du Serpent',
-		['Serpentshrine Cavern'] = 'Caverne du sanctuaire du Serpent',
 		['Tempest Keep'] = 'Donjon de la Tempête',
-		['The Eye'] = 'L’Œil',
 		['Black Temple'] = 'Temple noir',
-		['The Black Temple'] = 'Le Temple noir',
 		['The Sunwell'] = 'Le Puits de soleil',
-		['Sunwell Plateau'] = 'Plateau du Puits de soleil',
-		['Pandaria'] = 'Pandarie',
-		['Draenor'] = 'Draenor',
-		['Broken Isles'] = 'Îles Brisées',
-		['Invasion Points'] = 'Sites d’invasion',
 		['August Celestials'] = 'Astres vénérables',
 		['World Bosses'] = 'Boss hors instance'
 	}
@@ -51,31 +35,160 @@ local statusFrames = {}
 
 local function UpdateSavedInstances()
 	savedInstances = {}
+
+	local pandaria = EJ_GetInstanceInfo(322)
+	local draenor = EJ_GetInstanceInfo(557)
+	local brokenIsles = EJ_GetInstanceInfo(822)
+	local invasionPoints = EJ_GetInstanceInfo(959)
+	local azeroth = EJ_GetInstanceInfo(1028)
+
+	local difficulty = 'normal'
+
+	local fEid
+	local fQid
+	if UnitFactionGroup("player") == "Horde" then
+		fEid = 2212 fQid = 52848								-- The Lion's Roar
+	else
+		fEid = 2213 fQid = 52847								-- Doom's Howl
+	end
+	local worldBossesData = {
+		Pandaria = {
+			instanceName = pandaria,
+			maxBosses = 6,
+			bosses = {
+				{encounter = 691, quest = 32099},				-- Sha of Anger
+				{encounter = 725, quest = 32098},				-- Salyis's Warband
+				{encounter = 814, quest = 32518},				-- Nalak, The Storm Lord
+				{encounter = 826, quest = 32519},				-- Oondasta
+				{name = L['August Celestials'], quest = 33117},	-- August Celestials
+				{encounter = 861, quest = 33118}				-- Ordos, Fire-God of the Yaungol
+			}
+		},
+		Draenor = {
+			instanceName = draenor,
+			maxBosses = 3,
+			bosses = {
+				{encounter = 1291, quest = 37460},				-- Drov the Ruiner
+				{encounter = 1211, quest = 37462},				-- Tarlna the Ageless
+				{encounter = 1262, quest = 37464},				-- Rukhmar
+				{encounter = 1452, quest = 39380}				-- Supreme Lord Kazzak
+			}
+		},
+		BrokenIsles = {
+			instanceName = brokenIsles,
+			maxBosses = 1,
+			bosses = {
+				{encounter = 1790, quest = 43512},				-- Ana-Mouz
+				{encounter = 1956, quest = 47061},				-- Apocron
+				{encounter = 1883, quest = 46947},				-- Brutallus
+				{encounter = 1774, quest = 43193},				-- Calamir
+				{encounter = 1789, quest = 43448},				-- Drugon the Frostblood
+				{encounter = 1795, quest = 43985},				-- Flotsam
+				{encounter = 1770, quest = 42819},				-- Humongris
+				{encounter = 1769, quest = 43192},				-- Levantus
+				{encounter = 1884, quest = 46948},				-- Malificus
+				{encounter = 1783, quest = 43513},				-- Na'zak the Fiend
+				{encounter = 1749, quest = 42270},				-- Nithogg
+				{encounter = 1763, quest = 42779},				-- Shar'thos
+				{encounter = 1885, quest = 46945},				-- Si'vash
+				{encounter = 1756, quest = 42269},				-- The Soultakers
+				{encounter = 1796, quest = 44287}				-- Withered Jim
+			}
+		},
+		InvasionPoints = {
+			instanceName = invasionPoints,
+			maxBosses = 1,
+			bosses = {
+				{encounter = 2010, quest = 49199},				-- Matron Folnuna
+				{encounter = 2011, quest = 48620},				-- Mistress Alluradel
+				{encounter = 2012, quest = 49198},				-- Inquisitor Meto
+				{encounter = 2013, quest = 49195},				-- Occularus
+				{encounter = 2014, quest = 49197},				-- Sotanathor
+				{encounter = 2015, quest = 49196}				-- Pit Lord Vilemus
+			}
+		},
+		Azeroth = {
+			instanceName = azeroth,
+			maxBosses = 1,
+			bosses = {
+				{encounter = 2139, quest = 52181},				-- T'zane
+				{encounter = 2141, quest = 52169},				-- Ji'arak
+				{encounter = 2197, quest = 52157},				-- Hailstone Construct
+				{encounter = fEid, quest = fQid},				-- The Lion's Roar/Doom's Howl
+				-- {encounter = 2199, quest = 0},				-- Azurethos, The Winged Typhoon
+				{encounter = 2198, quest = 52166},				-- Warbringer Yenajz
+				{encounter = 2210, quest = 52196}				-- Dunegorger Kraulok
+			}
+		}
+	}
+
+	for z, wb in pairs(worldBossesData) do
+		for n = 1, #wb.bosses do
+			if IsQuestFlaggedCompleted(wb.bosses[n].quest) then
+				savedInstances[wb.instanceName] = savedInstances[wb.instanceName] or {}
+			end
+		end
+	end
+
+	local worldBosses = {}
+	for z, wb in pairs(worldBossesData) do
+		worldBosses[z] = worldBosses[z] or {}
+		for n = 1, #wb.bosses do
+			if not wb.bosses[n].name then
+				wb.bosses[n].name = EJ_GetEncounterInfo(wb.bosses[n].encounter)
+			end
+			table.insert(worldBosses[z], {
+				name = wb.bosses[n].name,
+				isKilled = IsQuestFlaggedCompleted(wb.bosses[n].quest)
+			})
+		end
+	end
+
+	local defeatedBosses = 0
+	for z, wb in pairs(worldBosses) do
+		for n = 1, #wb do
+			if wb[n].isKilled then
+				defeatedBosses = defeatedBosses + 1
+			end
+			if worldBossesData[z].instanceName and savedInstances[worldBossesData[z].instanceName] then
+				local maxBosses = worldBossesData[z].maxBosses
+				if defeatedBosses > 0 then
+					table.insert(savedInstances[worldBossesData[z].instanceName], {
+						bosses = worldBosses[z],
+						instanceName = worldBossesData[z].instanceName,
+						difficulty = difficulty,
+						difficultyName = L['World Bosses'],
+						maxBosses = worldBossesData[z].maxBosses,
+						defeatedBosses = defeatedBosses,
+						progress = defeatedBosses..'/'..maxBosses,
+						complete = defeatedBosses == maxBosses
+					})
+				end
+			end
+		end
+	end
 	for i = 1, GetNumSavedInstances() do
-		local instanceName, instanceID, instanceReset, instanceDifficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
 		-- Fix for AQ40 english clients
 		if instanceName == L['Ahn\'Qiraj Temple'] then
-			savedInstances[L['Temple of Ahn\'Qiraj']] = {}
-		-- Fix for SSC
+			instanceName = EJ_GetInstanceInfo(744)
+			-- Fix for SSC
 		elseif instanceName == L['Coilfang: Serpentshrine Cavern'] then
-			savedInstances[L['Serpentshrine Cavern']] = {}
-		-- Fix for Tempest Keep
+			instanceName = EJ_GetInstanceInfo(748)
+			-- Fix for Tempest Keep
 		elseif instanceName == L['Tempest Keep'] then
-			savedInstances[L['The Eye']] = {}
-		-- Fix for Black Temple french clients
+			instanceName = EJ_GetInstanceInfo(749)
+			-- Fix for Black Temple french clients
 		elseif instanceName == L['Black Temple'] then
-			savedInstances[L['The Black Temple']] = {}
-		-- Fix for Sunwell
+			instanceName = EJ_GetInstanceInfo(751)
+			-- Fix for Sunwell
 		elseif instanceName == L['The Sunwell'] then
-			savedInstances[L['Sunwell Plateau']] = {}
-		elseif savedInstances[instanceName] == nil then
-			savedInstances[instanceName] = {}
+			instanceName = EJ_GetInstanceInfo(752)
+			-- Fix for Violet Hold
+		elseif instanceName == L['Assault on Violet Hold'] then
+			maxBosses = 3
 		end
-		-- Worldbosses
-		savedInstances[L['Pandaria']] = {}
-		savedInstances[L['Draenor']] = {}
-		savedInstances[L['Broken Isles']] = {}
-		savedInstances[L['Invasion Points']] = {}
+		savedInstances[instanceName] = savedInstances[instanceName] or {}
 
 		local difficulty = 'normal'
 
@@ -89,141 +202,15 @@ local function UpdateSavedInstances()
 
 		local bosses = {}
 		for b = 1, maxBosses do
-			local bossName, texture, isKilled, unknown4 = GetSavedInstanceEncounterInfo(i, b)
+			local bossName, _, isKilled = GetSavedInstanceEncounterInfo(i, b)
 			table.insert(bosses, {
 				name = bossName,
 				isKilled = isKilled
 			})
 		end
 
-		-- Worldbosses
-		local worldBosses_Pandaria = {}
-		table.insert(worldBosses_Pandaria, {name = EJ_GetEncounterInfo(691), isKilled = IsQuestFlaggedCompleted(32099)})         -- Sha of Anger
-		table.insert(worldBosses_Pandaria, {name = EJ_GetEncounterInfo(725), isKilled = IsQuestFlaggedCompleted(32098)})         -- Salyis's Warband
-		table.insert(worldBosses_Pandaria, {name = EJ_GetEncounterInfo(814), isKilled = IsQuestFlaggedCompleted(32518)})         -- Nalak, The Storm Lord
-		table.insert(worldBosses_Pandaria, {name = EJ_GetEncounterInfo(826), isKilled = IsQuestFlaggedCompleted(32519)})         -- Oondasta
-		table.insert(worldBosses_Pandaria, {name = L['August Celestials'], isKilled = IsQuestFlaggedCompleted(33117)})           -- August Celestials
-		table.insert(worldBosses_Pandaria, {name = EJ_GetEncounterInfo(861), isKilled = IsQuestFlaggedCompleted(33118)})         -- Ordos, Fire-God of the Yaungol
-
-		local worldBosses_Draenor = {}
-		table.insert(worldBosses_Draenor, {name = EJ_GetEncounterInfo(1291), isKilled = IsQuestFlaggedCompleted(37460)})         -- Drov the Ruiner
-		table.insert(worldBosses_Draenor, {name = EJ_GetEncounterInfo(1211), isKilled = IsQuestFlaggedCompleted(37462)})         -- Tarlna the Ageless
-		table.insert(worldBosses_Draenor, {name = EJ_GetEncounterInfo(1262), isKilled = IsQuestFlaggedCompleted(37464)})         -- Rukhmar
-		table.insert(worldBosses_Draenor, {name = EJ_GetEncounterInfo(1452), isKilled = IsQuestFlaggedCompleted(39380)})         -- Supreme Lord Kazzak
-
-		local worldBosses_BrokenIsles = {}
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1790), isKilled = IsQuestFlaggedCompleted(43512)})     -- Ana-Mouz
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1956), isKilled = IsQuestFlaggedCompleted(47061)})     -- Apocron
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1883), isKilled = IsQuestFlaggedCompleted(46947)})     -- Brutallus
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1774), isKilled = IsQuestFlaggedCompleted(43193)})     -- Calamir
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1789), isKilled = IsQuestFlaggedCompleted(43448)})     -- Drugon the Frostblood
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1795), isKilled = IsQuestFlaggedCompleted(43985)})     -- Flotsam
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1770), isKilled = IsQuestFlaggedCompleted(42819)})     -- Humongris
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1769), isKilled = IsQuestFlaggedCompleted(43192)})     -- Levantus
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1884), isKilled = IsQuestFlaggedCompleted(46948)})     -- Malificus
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1783), isKilled = IsQuestFlaggedCompleted(43513)})     -- Na'zak the Fiend
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1749), isKilled = IsQuestFlaggedCompleted(42270)})     -- Nithogg
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1763), isKilled = IsQuestFlaggedCompleted(42779)})     -- Shar'thos
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1885), isKilled = IsQuestFlaggedCompleted(46945)})     -- Si'vash
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1756), isKilled = IsQuestFlaggedCompleted(42269)})     -- The Soultakers
-		table.insert(worldBosses_BrokenIsles, {name = EJ_GetEncounterInfo(1796), isKilled = IsQuestFlaggedCompleted(44287)})     -- Withered Jim
-
-		local worldBosses_InvasionPoints = {}
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2010), isKilled = IsQuestFlaggedCompleted(49199)})  -- Matron Folnuna
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2011), isKilled = IsQuestFlaggedCompleted(48620)})  -- Mistress Alluradel
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2012), isKilled = IsQuestFlaggedCompleted(49198)})  -- Inquisitor Meto
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2013), isKilled = IsQuestFlaggedCompleted(49195)})  -- Occularus
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2014), isKilled = IsQuestFlaggedCompleted(49197)})  -- Sotanathor
-		table.insert(worldBosses_InvasionPoints, {name = EJ_GetEncounterInfo(2015), isKilled = IsQuestFlaggedCompleted(49196)})  -- Pit Lord Vilemus
-
-		-- Fix for Violet Hold
-		if instanceName == L['Assault on Violet Hold'] then
-			maxBosses = 3
-		end
-
-		-- Fix for AQ40 english clients
-		if locked and instanceName == L['Ahn\'Qiraj Temple'] then
-			table.insert(savedInstances[L['Temple of Ahn\'Qiraj']], {
-				instanceID = instanceID,
-				bosses = bosses,
-				instanceName = instanceName,
-				instanceDifficulty = instanceDifficulty,
-				difficulty = difficulty,
-				difficultyName = difficultyName,
-				maxBosses = maxBosses,
-				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
-				progress = defeatedBosses..'/'..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
-			})
-		-- Fix for SSC
-		elseif locked and instanceName == L['Coilfang: Serpentshrine Cavern'] then
-			table.insert(savedInstances[L['Serpentshrine Cavern']], {
-				instanceID = instanceID,
-				bosses = bosses,
-				instanceName = instanceName,
-				instanceDifficulty = instanceDifficulty,
-				difficulty = difficulty,
-				difficultyName = difficultyName,
-				maxBosses = maxBosses,
-				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
-				progress = defeatedBosses..'/'..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
-			})
-		-- Fix for Tempest Keep
-		elseif locked and instanceName == L['Tempest Keep'] then
-			table.insert(savedInstances[L['The Eye']], {
-				instanceID = instanceID,
-				bosses = bosses,
-				instanceName = instanceName,
-				instanceDifficulty = instanceDifficulty,
-				difficulty = difficulty,
-				difficultyName = difficultyName,
-				maxBosses = maxBosses,
-				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
-				progress = defeatedBosses..'/'..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
-			})
-		-- Fix for Black Temple french clients
-		elseif locked and instanceName == L['Black Temple'] then
-			table.insert(savedInstances[L['The Black Temple']], {
-				instanceID = instanceID,
-				bosses = bosses,
-				instanceName = instanceName,
-				instanceDifficulty = instanceDifficulty,
-				difficulty = difficulty,
-				difficultyName = difficultyName,
-				maxBosses = maxBosses,
-				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
-				progress = defeatedBosses..'/'..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
-			})
-		-- Fix for Sunwell
-		elseif locked and instanceName == L['The Sunwell'] then
-			table.insert(savedInstances[L['Sunwell Plateau']], {
-				instanceID = instanceID,
-				bosses = bosses,
-				instanceName = instanceName,
-				instanceDifficulty = instanceDifficulty,
-				difficulty = difficulty,
-				difficultyName = difficultyName,
-				maxBosses = maxBosses,
-				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
-				progress = defeatedBosses..'/'..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
-			})
-		elseif locked then
+		if locked then
 			table.insert(savedInstances[instanceName], {
-				instanceID = instanceID,
 				bosses = bosses,
 				instanceName = instanceName,
 				instanceDifficulty = instanceDifficulty,
@@ -231,96 +218,10 @@ local function UpdateSavedInstances()
 				difficultyName = difficultyName,
 				maxBosses = maxBosses,
 				defeatedBosses = defeatedBosses,
-				instanceReset = instanceReset,
 				progress = defeatedBosses..'/'..maxBosses,
 				complete = locked and defeatedBosses == maxBosses,
 				locked = locked
 			})
-		-- Worldbosses
-		else
-			maxBosses = 6
-			defeatedBosses = (IsQuestFlaggedCompleted(32099) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(32098) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(32518) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(32519) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(33117) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(33118) and 1 or 0)
-			if defeatedBosses > 0 then
-				table.insert(savedInstances[L['Pandaria']], {
-					bosses = worldBosses_Pandaria,
-					instanceName = L['Pandaria'],
-					difficulty = 'normal',
-					difficultyName = L['World Bosses'],
-					maxBosses = maxBosses,
-					defeatedBosses = defeatedBosses,
-					progress = defeatedBosses..'/'..maxBosses,
-					complete = defeatedBosses == maxBosses
-				})
-			end
-			maxBosses = 4
-			defeatedBosses = (IsQuestFlaggedCompleted(37460) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(37462) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(37464) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(39380) and 1 or 0)
-			if defeatedBosses > 0 then
-				table.insert(savedInstances[L['Draenor']], {
-					bosses = worldBosses_Draenor,
-					instanceName = L['Draenor'],
-					difficulty = 'normal',
-					difficultyName = L['World Bosses'],
-					maxBosses = maxBosses,
-					defeatedBosses = defeatedBosses,
-					progress = defeatedBosses..'/'..maxBosses,
-					complete = defeatedBosses == maxBosses
-				})
-			end
-			maxBosses = 1
-			defeatedBosses = (IsQuestFlaggedCompleted(43512) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(47061) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(46947) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(43193) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(43448) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(43985) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(42819) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(43192) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(46948) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(43513) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(42270) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(42779) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(46945) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(42269) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(44287) and 1 or 0)
-			if defeatedBosses > 0 then
-				table.insert(savedInstances[L['Broken Isles']], {
-					bosses = worldBosses_BrokenIsles,
-					instanceName = L['Broken Isles'],
-					difficulty = 'normal',
-					difficultyName = L['World Bosses'],
-					maxBosses = maxBosses,
-					defeatedBosses = defeatedBosses,
-					progress = defeatedBosses..'/'..maxBosses,
-					complete = defeatedBosses == maxBosses
-				})
-			end
-			maxBosses = 1
-			defeatedBosses = (IsQuestFlaggedCompleted(49199) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(48620) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(49198) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(49195) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(49197) and 1 or 0)
-			defeatedBosses = defeatedBosses + (IsQuestFlaggedCompleted(49196) and 1 or 0)
-			if defeatedBosses > 0 then
-				table.insert(savedInstances[L['Invasion Points']], {
-					bosses = worldBosses_InvasionPoints,
-					instanceName = L['Invasion Points'],
-					difficulty = 'normal',
-					difficultyName = L['World Bosses'],
-					maxBosses = maxBosses,
-					defeatedBosses = defeatedBosses,
-					progress = defeatedBosses..'/'..maxBosses,
-					complete = defeatedBosses == maxBosses
-				})
-			end
 		end
 	end
 end
@@ -373,19 +274,11 @@ local function ShowTooltip(frame)
 	GameTooltip:SetOwner(frame, 'ANCHOR_BOTTOMRIGHT')
 	GameTooltip:SetText(info.instanceName .. ' (' .. info.difficultyName .. ')')
 
-	if info.defeatedBosses > 0 then
-		for i, boss in ipairs(info.bosses) do
-			if boss.isKilled then
-				GameTooltip:AddDoubleLine(boss.name, L['Defeated'], 1, 1, 1, 1, 0, 0)
-			end
-		end
-	end
-
-	if not info.complete then
-		for i, boss in ipairs(info.bosses) do
-			if not boss.isKilled then
-				GameTooltip:AddDoubleLine(boss.name, L['Available'], 1, 1, 1, 0, 1, 0)
-			end
+	for i, boss in ipairs(info.bosses) do
+		if boss.isKilled then
+			GameTooltip:AddDoubleLine(boss.name, L['Defeated'], 1, 1, 1, 1, 0, 0)
+		elseif not info.complete and not boss.isKilled then
+			GameTooltip:AddDoubleLine(boss.name, L['Available'], 1, 1, 1, 0, 1, 0)
 		end
 	end
 	GameTooltip:Show()

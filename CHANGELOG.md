@@ -1,3 +1,9 @@
+### 1.0.4
+- [x] Updated for Battle for Azeroth
+- [x] Tooltips are now sorted according to encounters
+- [x] Cleaned up code
+- [x] Initial release
+
 ### 1.0.3
 - [x] Fixed Black Temple tracking for french clients
 - [x] Fixed AQ40 tracking for english clients
