@@ -150,23 +150,24 @@ local function UpdateSavedInstances()
 			if wb[n].isKilled then
 				defeatedBosses = defeatedBosses + 1
 			end
-			if worldBossesData[z].instanceName and savedInstances[worldBossesData[z].instanceName] then
-				local maxBosses = worldBossesData[z].maxBosses
-				if defeatedBosses > 0 then
-					table.insert(savedInstances[worldBossesData[z].instanceName], {
-						bosses = worldBosses[z],
-						instanceName = worldBossesData[z].instanceName,
-						difficulty = difficulty,
-						difficultyName = L['World Bosses'],
-						maxBosses = worldBossesData[z].maxBosses,
-						defeatedBosses = defeatedBosses,
-						progress = defeatedBosses..'/'..maxBosses,
-						complete = defeatedBosses == maxBosses
-					})
-				end
+		end
+		if worldBossesData[z].instanceName and savedInstances[worldBossesData[z].instanceName] then
+			local maxBosses = worldBossesData[z].maxBosses
+			if defeatedBosses > 0 then
+				table.insert(savedInstances[worldBossesData[z].instanceName], {
+					bosses = worldBosses[z],
+					instanceName = worldBossesData[z].instanceName,
+					difficulty = difficulty,
+					difficultyName = L['World Bosses'],
+					maxBosses = worldBossesData[z].maxBosses,
+					defeatedBosses = defeatedBosses,
+					progress = defeatedBosses..'/'..maxBosses,
+					complete = defeatedBosses == maxBosses
+				})
 			end
 		end
 	end
+
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
 		-- Fix for AQ40 english clients
@@ -287,7 +288,6 @@ end
 local function hideTooltip(frame)
 	GameTooltip:Hide()
 end
-
 
 local function CreateStatusFrame(instanceFrame, difficulty)
 	local statusFrame = CreateFrame('Frame', nil, instanceFrame)
