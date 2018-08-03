@@ -1,3 +1,6 @@
+### 1.0.5
+- [x] Fixed wrong loop
+
 ### 1.0.4
 - [x] Updated for Battle for Azeroth
 - [x] Tooltips are now sorted according to encounters
