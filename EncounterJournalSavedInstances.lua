@@ -3,26 +3,58 @@ local locale = GetLocale()
 local L = {
 	['Defeated'] = 'Defeated',
 	['Available'] = 'Available',
+	['World Bosses'] = 'World Bosses',
+	['August Celestials'] = 'August Celestials',
 	['Assault on Violet Hold'] = 'Assault on Violet Hold',
 	['Ahn\'Qiraj Temple'] = 'Ahn\'Qiraj Temple',
 	['Coilfang: Serpentshrine Cavern'] = 'Coilfang: Serpentshrine Cavern',
 	['Tempest Keep'] = 'Tempest Keep',
 	['The Sunwell'] = 'The Sunwell',
-	['August Celestials'] = 'August Celestials',
-	['World Bosses'] = 'World Bosses'
+	['Magister\'s Terrace'] = 'Magister\'s Terrace',
+	['Auchindoun: Sethekk Halls'] = 'Auchindoun: Sethekk Halls',
+	['Auchindoun: Shadow Labyrinth'] = 'Auchindoun: Shadow Labyrinth',
+	['Auchindoun: Auchenai Crypts'] = 'Auchindoun: Auchenai Crypts',
+	['Auchindoun: Mana-Tombs'] = 'Auchindoun: Mana-Tombs',
+	['Tempest Keep: The Botanica'] = 'Tempest Keep: The Botanica',
+	['Tempest Keep: The Mechanar'] = 'Tempest Keep: The Mechanar',
+	['Tempest Keep: The Arcatraz'] = 'Tempest Keep: The Arcatraz',
+	['Coilfang: The Slave Pens'] = 'Coilfang: The Slave Pens',
+	['Coilfang: The Steamvault'] = 'Coilfang: The Steamvault',
+	['Coilfang: The Underbog'] = 'Coilfang: The Underbog',
+	['Hellfire Citadel: The Shattered Halls'] = 'Hellfire Citadel: The Shattered Halls',
+	['Hellfire Citadel: Ramparts'] = 'Hellfire Citadel: Ramparts',
+	['Hellfire Citadel: The Blood Furnace'] = 'Hellfire Citadel: The Blood Furnace',
+	['The Escape from Durnholde'] = 'The Escape from Durnholde',
+	['Opening of the Dark Portal'] = 'Opening of the Dark Portal'
 }
 
 if locale == 'frFR' then
 	L = {
 		['Defeated'] = 'Vaincu',
 		['Available'] = 'Disponible',
+		['World Bosses'] = 'Boss hors instance',
+		['August Celestials'] = 'Astres vénérables',
 		['Assault on Violet Hold'] = 'L’assaut sur le fort Pourpre',
 		['Coilfang: Serpentshrine Cavern'] = 'Glissecroc : caverne du sanctuaire du Serpent',
 		['Tempest Keep'] = 'Donjon de la Tempête',
 		['Black Temple'] = 'Temple noir',
 		['The Sunwell'] = 'Le Puits de soleil',
-		['August Celestials'] = 'Astres vénérables',
-		['World Bosses'] = 'Boss hors instance'
+		['Magister\'s Terrace'] = 'Terrasse des magistères',
+		['Auchindoun: Sethekk Halls'] = 'Auchindoun : Salles des Sethekk',
+		['Auchindoun: Shadow Labyrinth'] = 'Auchindoun : Labyrinthe des Ombres',
+		['Auchindoun: Auchenai Crypts'] = 'Auchindoun : Cryptes Auchenaï',
+		['Auchindoun: Mana-Tombs'] = 'Auchindoun : Tombes-mana',
+		['Tempest Keep: The Botanica'] = 'Donjon de la Tempête : la Botanica',
+		['Tempest Keep: The Mechanar'] = 'Donjon de la Tempête : le Méchanar',
+		['Tempest Keep: The Arcatraz'] = 'Donjon de la Tempête : l\'Arcatraz',
+		['Coilfang: The Slave Pens'] = 'Glissecroc : les Enclos aux esclaves',
+		['Coilfang: The Steamvault'] = 'Glissecroc : le Caveau de la vapeur',
+		['Coilfang: The Underbog'] = 'Glissecroc : la Basse-tourbière',
+		['Hellfire Citadel: The Shattered Halls'] = 'Citadelle des Flammes infernales : les Salles brisées',
+		['Hellfire Citadel: Ramparts'] = 'Citadelle des Flammes infernales : les Remparts',
+		['Hellfire Citadel: The Blood Furnace'] = 'Citadelle des Flammes infernales : la Fournaise du sang',
+		['The Escape from Durnholde'] = 'L\'évasion de Fort-de-Durn',
+		['Opening of the Dark Portal'] = 'Ouverture de la Porte des ténèbres'
 	}
 end
 
@@ -170,22 +202,48 @@ local function UpdateSavedInstances()
 
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
-		-- Fix for AQ40 english clients
 		if instanceName == L['Ahn\'Qiraj Temple'] then
 			instanceName = EJ_GetInstanceInfo(744)
-			-- Fix for SSC
 		elseif instanceName == L['Coilfang: Serpentshrine Cavern'] then
 			instanceName = EJ_GetInstanceInfo(748)
-			-- Fix for Tempest Keep
 		elseif instanceName == L['Tempest Keep'] then
 			instanceName = EJ_GetInstanceInfo(749)
-			-- Fix for Black Temple french clients
 		elseif instanceName == L['Black Temple'] then
 			instanceName = EJ_GetInstanceInfo(751)
-			-- Fix for Sunwell
 		elseif instanceName == L['The Sunwell'] then
 			instanceName = EJ_GetInstanceInfo(752)
-			-- Fix for Violet Hold
+		elseif instanceName == L['Magister\'s Terrace'] then
+			instanceName = EJ_GetInstanceInfo(249)
+		elseif instanceName == L['Auchindoun: Sethekk Halls'] then
+			instanceName = EJ_GetInstanceInfo(252)
+		elseif instanceName == L['Auchindoun: Shadow Labyrinth'] then
+			instanceName = EJ_GetInstanceInfo(253)
+		elseif instanceName == L['Auchindoun: Auchenai Crypts'] then
+			instanceName = EJ_GetInstanceInfo(247)
+		elseif instanceName == L['Auchindoun: Mana-Tombs'] then
+			instanceName = EJ_GetInstanceInfo(250)
+		elseif instanceName == L['Tempest Keep: The Botanica'] then
+			instanceName = EJ_GetInstanceInfo(257)
+		elseif instanceName == L['Tempest Keep: The Mechanar'] then
+			instanceName = EJ_GetInstanceInfo(258)
+		elseif instanceName == L['Tempest Keep: The Arcatraz'] then
+			instanceName = EJ_GetInstanceInfo(254)
+		elseif instanceName == L['Coilfang: The Slave Pens'] then
+			instanceName = EJ_GetInstanceInfo(260)
+		elseif instanceName == L['Coilfang: The Steamvault'] then
+			instanceName = EJ_GetInstanceInfo(261)
+		elseif instanceName == L['Coilfang: The Underbog'] then
+			instanceName = EJ_GetInstanceInfo(262)
+		elseif instanceName == L['Hellfire Citadel: The Shattered Halls'] then
+			instanceName = EJ_GetInstanceInfo(259)
+		elseif instanceName == L['Hellfire Citadel: Ramparts'] then
+			instanceName = EJ_GetInstanceInfo(248)
+		elseif instanceName == L['Hellfire Citadel: The Blood Furnace'] then
+			instanceName = EJ_GetInstanceInfo(256)
+		elseif instanceName == L['The Escape from Durnholde'] then
+			instanceName = EJ_GetInstanceInfo(251)
+		elseif instanceName == L['Opening of the Dark Portal'] then
+			instanceName = EJ_GetInstanceInfo(255)
 		elseif instanceName == L['Assault on Violet Hold'] then
 			maxBosses = 3
 		end

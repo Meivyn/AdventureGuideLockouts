@@ -1,3 +1,6 @@
+### 1.0.6
+- [x] Fixed all dungeons of The Burning Crusade
+
 ### 1.0.5
 - [x] Fixed wrong loop
 
