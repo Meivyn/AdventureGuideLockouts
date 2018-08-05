@@ -25,7 +25,8 @@ local L = {
 	['Hellfire Citadel: Ramparts'] = 'Hellfire Citadel: Ramparts',
 	['Hellfire Citadel: The Blood Furnace'] = 'Hellfire Citadel: The Blood Furnace',
 	['The Escape from Durnholde'] = 'The Escape from Durnholde',
-	['Opening of the Dark Portal'] = 'Opening of the Dark Portal'
+	['Opening of the Dark Portal'] = 'Opening of the Dark Portal',
+	['Violet Hold'] = 'Violet Hold'
 }
 
 if locale == 'frFR' then
@@ -202,13 +203,13 @@ local function UpdateSavedInstances()
 
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
-		if instanceName == L['Ahn\'Qiraj Temple'] then
+		if instanceName == L['Ahn\'Qiraj Temple'] and locale == 'enUS' then
 			instanceName = EJ_GetInstanceInfo(744)
 		elseif instanceName == L['Coilfang: Serpentshrine Cavern'] then
 			instanceName = EJ_GetInstanceInfo(748)
 		elseif instanceName == L['Tempest Keep'] then
 			instanceName = EJ_GetInstanceInfo(749)
-		elseif instanceName == L['Black Temple'] then
+		elseif instanceName == L['Black Temple'] and locale == 'frFR' then
 			instanceName = EJ_GetInstanceInfo(751)
 		elseif instanceName == L['The Sunwell'] then
 			instanceName = EJ_GetInstanceInfo(752)
@@ -244,6 +245,8 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(251)
 		elseif instanceName == L['Opening of the Dark Portal'] then
 			instanceName = EJ_GetInstanceInfo(255)
+		elseif instanceName == L['Violet Hold'] and locale == 'enUS' then
+			instanceName = EJ_GetInstanceInfo(283)
 		elseif instanceName == L['Assault on Violet Hold'] then
 			maxBosses = 3
 		end
