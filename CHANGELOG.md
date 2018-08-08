@@ -1,3 +1,6 @@
+### v1.0.8
+- [x] Added Azurethos to BfA World Bosses
+
 ### v1.0.7
 - [x] Fixed Violet Hold for english clients
 

@@ -80,77 +80,77 @@ local function UpdateSavedInstances()
 	local fEid
 	local fQid
 	if UnitFactionGroup("player") == "Horde" then
-		fEid = 2212 fQid = 52848								-- The Lion's Roar
+		fEid = 2212 fQid = 52848									-- The Lion's Roar
 	else
-		fEid = 2213 fQid = 52847								-- Doom's Howl
+		fEid = 2213 fQid = 52847									-- Doom's Howl
 	end
 	local worldBossesData = {
 		Pandaria = {
 			instanceName = pandaria,
 			maxBosses = 6,
 			bosses = {
-				{encounter = 691, quest = 32099},				-- Sha of Anger
-				{encounter = 725, quest = 32098},				-- Salyis's Warband
-				{encounter = 814, quest = 32518},				-- Nalak, The Storm Lord
-				{encounter = 826, quest = 32519},				-- Oondasta
-				{name = L['August Celestials'], quest = 33117},	-- August Celestials
-				{encounter = 861, quest = 33118}				-- Ordos, Fire-God of the Yaungol
+				{encounter = 691, quest = 32099},					-- Sha of Anger
+				{encounter = 725, quest = 32098},					-- Salyis's Warband
+				{encounter = 814, quest = 32518},					-- Nalak, The Storm Lord
+				{encounter = 826, quest = 32519},					-- Oondasta
+				{name = L['August Celestials'], quest = 33117},		-- August Celestials
+				{encounter = 861, quest = 33118}					-- Ordos, Fire-God of the Yaungol
 			}
 		},
 		Draenor = {
 			instanceName = draenor,
 			maxBosses = 3,
 			bosses = {
-				{encounter = 1291, quest = 37460},				-- Drov the Ruiner
-				{encounter = 1211, quest = 37462},				-- Tarlna the Ageless
-				{encounter = 1262, quest = 37464},				-- Rukhmar
-				{encounter = 1452, quest = 39380}				-- Supreme Lord Kazzak
+				{encounter = 1291, quest = 37460},					-- Drov the Ruiner
+				{encounter = 1211, quest = 37462},					-- Tarlna the Ageless
+				{encounter = 1262, quest = 37464},					-- Rukhmar
+				{encounter = 1452, quest = 39380}					-- Supreme Lord Kazzak
 			}
 		},
 		BrokenIsles = {
 			instanceName = brokenIsles,
 			maxBosses = 1,
 			bosses = {
-				{encounter = 1790, quest = 43512},				-- Ana-Mouz
-				{encounter = 1956, quest = 47061},				-- Apocron
-				{encounter = 1883, quest = 46947},				-- Brutallus
-				{encounter = 1774, quest = 43193},				-- Calamir
-				{encounter = 1789, quest = 43448},				-- Drugon the Frostblood
-				{encounter = 1795, quest = 43985},				-- Flotsam
-				{encounter = 1770, quest = 42819},				-- Humongris
-				{encounter = 1769, quest = 43192},				-- Levantus
-				{encounter = 1884, quest = 46948},				-- Malificus
-				{encounter = 1783, quest = 43513},				-- Na'zak the Fiend
-				{encounter = 1749, quest = 42270},				-- Nithogg
-				{encounter = 1763, quest = 42779},				-- Shar'thos
-				{encounter = 1885, quest = 46945},				-- Si'vash
-				{encounter = 1756, quest = 42269},				-- The Soultakers
-				{encounter = 1796, quest = 44287}				-- Withered Jim
+				{encounter = 1790, quest = 43512},					-- Ana-Mouz
+				{encounter = 1956, quest = 47061},					-- Apocron
+				{encounter = 1883, quest = 46947},					-- Brutallus
+				{encounter = 1774, quest = 43193},					-- Calamir
+				{encounter = 1789, quest = 43448},					-- Drugon the Frostblood
+				{encounter = 1795, quest = 43985},					-- Flotsam
+				{encounter = 1770, quest = 42819},					-- Humongris
+				{encounter = 1769, quest = 43192},					-- Levantus
+				{encounter = 1884, quest = 46948},					-- Malificus
+				{encounter = 1783, quest = 43513},					-- Na'zak the Fiend
+				{encounter = 1749, quest = 42270},					-- Nithogg
+				{encounter = 1763, quest = 42779},					-- Shar'thos
+				{encounter = 1885, quest = 46945},					-- Si'vash
+				{encounter = 1756, quest = 42269},					-- The Soultakers
+				{encounter = 1796, quest = 44287}					-- Withered Jim
 			}
 		},
 		InvasionPoints = {
 			instanceName = invasionPoints,
 			maxBosses = 1,
 			bosses = {
-				{encounter = 2010, quest = 49199},				-- Matron Folnuna
-				{encounter = 2011, quest = 48620},				-- Mistress Alluradel
-				{encounter = 2012, quest = 49198},				-- Inquisitor Meto
-				{encounter = 2013, quest = 49195},				-- Occularus
-				{encounter = 2014, quest = 49197},				-- Sotanathor
-				{encounter = 2015, quest = 49196}				-- Pit Lord Vilemus
+				{encounter = 2010, quest = 49199},					-- Matron Folnuna
+				{encounter = 2011, quest = 48620},					-- Mistress Alluradel
+				{encounter = 2012, quest = 49198},					-- Inquisitor Meto
+				{encounter = 2013, quest = 49195},					-- Occularus
+				{encounter = 2014, quest = 49197},					-- Sotanathor
+				{encounter = 2015, quest = 49196}					-- Pit Lord Vilemus
 			}
 		},
 		Azeroth = {
 			instanceName = azeroth,
 			maxBosses = 1,
 			bosses = {
-				{encounter = 2139, quest = 52181},				-- T'zane
-				{encounter = 2141, quest = 52169},				-- Ji'arak
-				{encounter = 2197, quest = 52157},				-- Hailstone Construct
-				{encounter = fEid, quest = fQid},				-- The Lion's Roar/Doom's Howl
-				-- {encounter = 2199, quest = 0},				-- Azurethos, The Winged Typhoon
-				{encounter = 2198, quest = 52166},				-- Warbringer Yenajz
-				{encounter = 2210, quest = 52196}				-- Dunegorger Kraulok
+				{encounter = 2139, quest = 52181},					-- T'zane
+				{encounter = 2141, quest = 52169},					-- Ji'arak
+				{encounter = 2197, quest = 52157},					-- Hailstone Construct
+				{encounter = fEid, quest = fQid},					-- The Lion's Roar/Doom's Howl
+				{encounter = 2199, quest = 52163},					-- Azurethos, The Winged Typhoon
+				{encounter = 2198, quest = 52166},					-- Warbringer Yenajz
+				{encounter = 2210, quest = 52196}					-- Dunegorger Kraulok
 			}
 		}
 	}
