@@ -1,3 +1,6 @@
+### v1.0.9
+- [x] Minor code changes
+
 ### v1.0.8
 - [x] Added Azurethos to BfA World Bosses
 

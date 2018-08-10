@@ -1,65 +1,65 @@
 local locale = GetLocale()
 
 local L = {
-	['Defeated'] = 'Defeated',
-	['Available'] = 'Available',
-	['World Bosses'] = 'World Bosses',
-	['August Celestials'] = 'August Celestials',
-	['Assault on Violet Hold'] = 'Assault on Violet Hold',
-	['Ahn\'Qiraj Temple'] = 'Ahn\'Qiraj Temple',
-	['Coilfang: Serpentshrine Cavern'] = 'Coilfang: Serpentshrine Cavern',
-	['Tempest Keep'] = 'Tempest Keep',
-	['The Sunwell'] = 'The Sunwell',
-	['Magister\'s Terrace'] = 'Magister\'s Terrace',
-	['Auchindoun: Sethekk Halls'] = 'Auchindoun: Sethekk Halls',
-	['Auchindoun: Shadow Labyrinth'] = 'Auchindoun: Shadow Labyrinth',
-	['Auchindoun: Auchenai Crypts'] = 'Auchindoun: Auchenai Crypts',
-	['Auchindoun: Mana-Tombs'] = 'Auchindoun: Mana-Tombs',
-	['Tempest Keep: The Botanica'] = 'Tempest Keep: The Botanica',
-	['Tempest Keep: The Mechanar'] = 'Tempest Keep: The Mechanar',
-	['Tempest Keep: The Arcatraz'] = 'Tempest Keep: The Arcatraz',
-	['Coilfang: The Slave Pens'] = 'Coilfang: The Slave Pens',
-	['Coilfang: The Steamvault'] = 'Coilfang: The Steamvault',
-	['Coilfang: The Underbog'] = 'Coilfang: The Underbog',
-	['Hellfire Citadel: The Shattered Halls'] = 'Hellfire Citadel: The Shattered Halls',
-	['Hellfire Citadel: Ramparts'] = 'Hellfire Citadel: Ramparts',
-	['Hellfire Citadel: The Blood Furnace'] = 'Hellfire Citadel: The Blood Furnace',
-	['The Escape from Durnholde'] = 'The Escape from Durnholde',
-	['Opening of the Dark Portal'] = 'Opening of the Dark Portal',
-	['Violet Hold'] = 'Violet Hold'
+	["Ahn'Qiraj Temple"] = "Ahn\'Qiraj Temple",
+	["Assault on Violet Hold"] = "Assault on Violet Hold",
+	["Auchindoun: Auchenai Crypts"] = "Auchindoun: Auchenai Crypts",
+	["Auchindoun: Mana-Tombs"] = "Auchindoun: Mana-Tombs",
+	["Auchindoun: Sethekk Halls"] = "Auchindoun: Sethekk Halls",
+	["Auchindoun: Shadow Labyrinth"] = "Auchindoun: Shadow Labyrinth",
+	["August Celestials"] = "August Celestials",
+	["Available"] = "Available",
+	["Coilfang: Serpentshrine Cavern"] = "Coilfang: Serpentshrine Cavern",
+	["Coilfang: The Slave Pens"] = "Coilfang: The Slave Pens",
+	["Coilfang: The Steamvault"] = "Coilfang: The Steamvault",
+	["Coilfang: The Underbog"] = "Coilfang: The Underbog",
+	["Defeated"] = "Defeated",
+	["Hellfire Citadel: Ramparts"] = "Hellfire Citadel: Ramparts",
+	["Hellfire Citadel: The Blood Furnace"] = "Hellfire Citadel: The Blood Furnace",
+	["Hellfire Citadel: The Shattered Halls"] = "Hellfire Citadel: The Shattered Halls",
+	["Magister's Terrace"] = "Magister's Terrace",
+	["Opening of the Dark Portal"] = "Opening of the Dark Portal",
+	["Tempest Keep"] = "Tempest Keep",
+	["Tempest Keep: The Arcatraz"] = "Tempest Keep: The Arcatraz",
+	["Tempest Keep: The Botanica"] = "Tempest Keep: The Botanica",
+	["Tempest Keep: The Mechanar"] = "Tempest Keep: The Mechanar",
+	["The Escape from Durnholde"] = "The Escape from Durnholde",
+	["The Sunwell"] = "The Sunwell",
+	["Violet Hold"] = "Violet Hold",
+	["World Bosses"] = "World Bosses"
 }
 
-if locale == 'frFR' then
+if locale == "frFR" then
 	L = {
-		['Defeated'] = 'Vaincu',
-		['Available'] = 'Disponible',
-		['World Bosses'] = 'Boss hors instance',
-		['August Celestials'] = 'Astres vénérables',
-		['Assault on Violet Hold'] = 'L’assaut sur le fort Pourpre',
-		['Coilfang: Serpentshrine Cavern'] = 'Glissecroc : caverne du sanctuaire du Serpent',
-		['Tempest Keep'] = 'Donjon de la Tempête',
-		['Black Temple'] = 'Temple noir',
-		['The Sunwell'] = 'Le Puits de soleil',
-		['Magister\'s Terrace'] = 'Terrasse des magistères',
-		['Auchindoun: Sethekk Halls'] = 'Auchindoun : Salles des Sethekk',
-		['Auchindoun: Shadow Labyrinth'] = 'Auchindoun : Labyrinthe des Ombres',
-		['Auchindoun: Auchenai Crypts'] = 'Auchindoun : Cryptes Auchenaï',
-		['Auchindoun: Mana-Tombs'] = 'Auchindoun : Tombes-mana',
-		['Tempest Keep: The Botanica'] = 'Donjon de la Tempête : la Botanica',
-		['Tempest Keep: The Mechanar'] = 'Donjon de la Tempête : le Méchanar',
-		['Tempest Keep: The Arcatraz'] = 'Donjon de la Tempête : l\'Arcatraz',
-		['Coilfang: The Slave Pens'] = 'Glissecroc : les Enclos aux esclaves',
-		['Coilfang: The Steamvault'] = 'Glissecroc : le Caveau de la vapeur',
-		['Coilfang: The Underbog'] = 'Glissecroc : la Basse-tourbière',
-		['Hellfire Citadel: The Shattered Halls'] = 'Citadelle des Flammes infernales : les Salles brisées',
-		['Hellfire Citadel: Ramparts'] = 'Citadelle des Flammes infernales : les Remparts',
-		['Hellfire Citadel: The Blood Furnace'] = 'Citadelle des Flammes infernales : la Fournaise du sang',
-		['The Escape from Durnholde'] = 'L\'évasion de Fort-de-Durn',
-		['Opening of the Dark Portal'] = 'Ouverture de la Porte des ténèbres'
+		["Assault on Violet Hold"] = "L’assaut sur le fort Pourpre",
+		["Auchindoun: Auchenai Crypts"] = "Auchindoun : Cryptes Auchenaï",
+		["Auchindoun: Mana-Tombs"] = "Auchindoun : Tombes-mana",
+		["Auchindoun: Sethekk Halls"] = "Auchindoun : Salles des Sethekk",
+		["Auchindoun: Shadow Labyrinth"] = "Auchindoun : Labyrinthe des Ombres",
+		["August Celestials"] = "Astres vénérables",
+		["Available"] = "Disponible",
+		["Black Temple"] = "Temple noir",
+		["Coilfang: Serpentshrine Cavern"] = "Glissecroc : caverne du sanctuaire du Serpent",
+		["Coilfang: The Slave Pens"] = "Glissecroc : les Enclos aux esclaves",
+		["Coilfang: The Steamvault"] = "Glissecroc : le Caveau de la vapeur",
+		["Coilfang: The Underbog"] = "Glissecroc : la Basse-tourbière",
+		["Defeated"] = "Vaincu",
+		["Hellfire Citadel: Ramparts"] = "Citadelle des Flammes infernales : les Remparts",
+		["Hellfire Citadel: The Blood Furnace"] = "Citadelle des Flammes infernales : la Fournaise du sang",
+		["Hellfire Citadel: The Shattered Halls"] = "Citadelle des Flammes infernales : les Salles brisées",
+		["Magister's Terrace"] = "Terrasse des magistères",
+		["Opening of the Dark Portal"] = "Ouverture de la Porte des ténèbres",
+		["Tempest Keep"] = "Donjon de la Tempête",
+		["Tempest Keep: The Arcatraz"] = "Donjon de la Tempête : l'Arcatraz",
+		["Tempest Keep: The Botanica"] = "Donjon de la Tempête : la Botanica",
+		["Tempest Keep: The Mechanar"] = "Donjon de la Tempête : le Méchanar",
+		["The Escape from Durnholde"] = "L'évasion de Fort-de-Durn",
+		["The Sunwell"] = "Le Puits de soleil",
+		["World Bosses"] = "Boss hors instance"
 	}
 end
 
-local eventFrame = CreateFrame('Frame', 'EncounterJournalSavedInstances_EventFrame', UIParent)
+local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFrame", UIParent)
 eventFrame:Show()
 
 local startTime = -1
@@ -75,7 +75,7 @@ local function UpdateSavedInstances()
 	local invasionPoints = EJ_GetInstanceInfo(959)
 	local azeroth = EJ_GetInstanceInfo(1028)
 
-	local difficulty = 'normal'
+	local difficulty = "normal"
 
 	local fEid
 	local fQid
@@ -93,7 +93,7 @@ local function UpdateSavedInstances()
 				{encounter = 725, quest = 32098},					-- Salyis's Warband
 				{encounter = 814, quest = 32518},					-- Nalak, The Storm Lord
 				{encounter = 826, quest = 32519},					-- Oondasta
-				{name = L['August Celestials'], quest = 33117},		-- August Celestials
+				{name = L["August Celestials"], quest = 33117},		-- August Celestials
 				{encounter = 861, quest = 33118}					-- Ordos, Fire-God of the Yaungol
 			}
 		},
@@ -191,10 +191,10 @@ local function UpdateSavedInstances()
 					bosses = worldBosses[z],
 					instanceName = worldBossesData[z].instanceName,
 					difficulty = difficulty,
-					difficultyName = L['World Bosses'],
+					difficultyName = L["World Bosses"],
 					maxBosses = worldBossesData[z].maxBosses,
 					defeatedBosses = defeatedBosses,
-					progress = defeatedBosses..'/'..maxBosses,
+					progress = defeatedBosses.."/"..maxBosses,
 					complete = defeatedBosses == maxBosses
 				})
 			end
@@ -203,63 +203,63 @@ local function UpdateSavedInstances()
 
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
-		if instanceName == L['Ahn\'Qiraj Temple'] and locale == 'enUS' then
+		if instanceName == L["Ahn'Qiraj Temple"] and locale == "enUS" then
 			instanceName = EJ_GetInstanceInfo(744)
-		elseif instanceName == L['Coilfang: Serpentshrine Cavern'] then
+		elseif instanceName == L["Coilfang: Serpentshrine Cavern"] then
 			instanceName = EJ_GetInstanceInfo(748)
-		elseif instanceName == L['Tempest Keep'] then
+		elseif instanceName == L["Tempest Keep"] then
 			instanceName = EJ_GetInstanceInfo(749)
-		elseif instanceName == L['Black Temple'] and locale == 'frFR' then
+		elseif instanceName == L["Black Temple"] and locale == "frFR" then
 			instanceName = EJ_GetInstanceInfo(751)
-		elseif instanceName == L['The Sunwell'] then
+		elseif instanceName == L["The Sunwell"] then
 			instanceName = EJ_GetInstanceInfo(752)
-		elseif instanceName == L['Magister\'s Terrace'] then
+		elseif instanceName == L["Magister's Terrace"] then
 			instanceName = EJ_GetInstanceInfo(249)
-		elseif instanceName == L['Auchindoun: Sethekk Halls'] then
+		elseif instanceName == L["Auchindoun: Sethekk Halls"] then
 			instanceName = EJ_GetInstanceInfo(252)
-		elseif instanceName == L['Auchindoun: Shadow Labyrinth'] then
+		elseif instanceName == L["Auchindoun: Shadow Labyrinth"] then
 			instanceName = EJ_GetInstanceInfo(253)
-		elseif instanceName == L['Auchindoun: Auchenai Crypts'] then
+		elseif instanceName == L["Auchindoun: Auchenai Crypts"] then
 			instanceName = EJ_GetInstanceInfo(247)
-		elseif instanceName == L['Auchindoun: Mana-Tombs'] then
+		elseif instanceName == L["Auchindoun: Mana-Tombs"] then
 			instanceName = EJ_GetInstanceInfo(250)
-		elseif instanceName == L['Tempest Keep: The Botanica'] then
+		elseif instanceName == L["Tempest Keep: The Botanica"] then
 			instanceName = EJ_GetInstanceInfo(257)
-		elseif instanceName == L['Tempest Keep: The Mechanar'] then
+		elseif instanceName == L["Tempest Keep: The Mechanar"] then
 			instanceName = EJ_GetInstanceInfo(258)
-		elseif instanceName == L['Tempest Keep: The Arcatraz'] then
+		elseif instanceName == L["Tempest Keep: The Arcatraz"] then
 			instanceName = EJ_GetInstanceInfo(254)
-		elseif instanceName == L['Coilfang: The Slave Pens'] then
+		elseif instanceName == L["Coilfang: The Slave Pens"] then
 			instanceName = EJ_GetInstanceInfo(260)
-		elseif instanceName == L['Coilfang: The Steamvault'] then
+		elseif instanceName == L["Coilfang: The Steamvault"] then
 			instanceName = EJ_GetInstanceInfo(261)
-		elseif instanceName == L['Coilfang: The Underbog'] then
+		elseif instanceName == L["Coilfang: The Underbog"] then
 			instanceName = EJ_GetInstanceInfo(262)
-		elseif instanceName == L['Hellfire Citadel: The Shattered Halls'] then
+		elseif instanceName == L["Hellfire Citadel: The Shattered Halls"] then
 			instanceName = EJ_GetInstanceInfo(259)
-		elseif instanceName == L['Hellfire Citadel: Ramparts'] then
+		elseif instanceName == L["Hellfire Citadel: Ramparts"] then
 			instanceName = EJ_GetInstanceInfo(248)
-		elseif instanceName == L['Hellfire Citadel: The Blood Furnace'] then
+		elseif instanceName == L["Hellfire Citadel: The Blood Furnace"] then
 			instanceName = EJ_GetInstanceInfo(256)
-		elseif instanceName == L['The Escape from Durnholde'] then
+		elseif instanceName == L["The Escape from Durnholde"] then
 			instanceName = EJ_GetInstanceInfo(251)
-		elseif instanceName == L['Opening of the Dark Portal'] then
+		elseif instanceName == L["Opening of the Dark Portal"] then
 			instanceName = EJ_GetInstanceInfo(255)
-		elseif instanceName == L['Violet Hold'] and locale == 'enUS' then
+		elseif instanceName == L["Violet Hold"] and locale == "enUS" then
 			instanceName = EJ_GetInstanceInfo(283)
-		elseif instanceName == L['Assault on Violet Hold'] then
+		elseif instanceName == L["Assault on Violet Hold"] then
 			maxBosses = 3
 		end
 		savedInstances[instanceName] = savedInstances[instanceName] or {}
 
-		local difficulty = 'normal'
+		local difficulty = "normal"
 
 		if instanceDifficulty == 7 or instanceDifficulty == 17 then
-			difficulty = 'lfr'
+			difficulty = "lfr"
 		elseif instanceDifficulty == 2 or instanceDifficulty == 5 or instanceDifficulty == 6 or instanceDifficulty == 15 then
-			difficulty = 'heroic'
+			difficulty = "heroic"
 		elseif instanceDifficulty == 16 or instanceDifficulty == 23 then
-			difficulty = 'mythic'
+			difficulty = "mythic"
 		end
 
 		local bosses = {}
@@ -280,7 +280,7 @@ local function UpdateSavedInstances()
 				difficultyName = difficultyName,
 				maxBosses = maxBosses,
 				defeatedBosses = defeatedBosses,
-				progress = defeatedBosses..'/'..maxBosses,
+				progress = defeatedBosses.."/"..maxBosses,
 				complete = locked and defeatedBosses == maxBosses,
 				locked = locked
 			})
@@ -290,42 +290,42 @@ end
 
 local function UpdateStatusFramePosition(instanceFrame)
 	local savedFrames = statusFrames[instanceFrame:GetName()]
-	local lfrVisible = savedFrames and savedFrames['lfr'] and savedFrames['lfr']:IsShown()
-	local normalVisible = savedFrames and savedFrames['normal'] and savedFrames['normal']:IsShown()
-	local heroicVisible = savedFrames and savedFrames['heroic'] and savedFrames['heroic']:IsShown()
-	local mythicVisible = savedFrames and savedFrames['mythic'] and savedFrames['mythic']:IsShown()
+	local lfrVisible = savedFrames and savedFrames["lfr"] and savedFrames["lfr"]:IsShown()
+	local normalVisible = savedFrames and savedFrames["normal"] and savedFrames["normal"]:IsShown()
+	local heroicVisible = savedFrames and savedFrames["heroic"] and savedFrames["heroic"]:IsShown()
+	local mythicVisible = savedFrames and savedFrames["mythic"] and savedFrames["mythic"]:IsShown()
 
 	if mythicVisible then
-		savedFrames['mythic']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', 4, -12)
+		savedFrames["mythic"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", 4, -12)
 	end
 
 	if heroicVisible then
 		if mythicVisible then
-			savedFrames['heroic']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -28, -12)
+			savedFrames["heroic"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -28, -12)
 		else
-			savedFrames['heroic']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', 4, -12)
+			savedFrames["heroic"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", 4, -12)
 		end
 	end
 
 	if normalVisible then
 		if heroicVisible and mythicVisible then
-			savedFrames['normal']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -60, -23)
+			savedFrames["normal"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -60, -23)
 		elseif heroicVisible or mythicVisible then
-			savedFrames['normal']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -28, -23)
+			savedFrames["normal"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -28, -23)
 		else
-			savedFrames['normal']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', 4, -23)
+			savedFrames["normal"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", 4, -23)
 		end
 	end
 
 	if lfrVisible then
 		if normalVisible and heroicVisible and mythicVisible then
-			savedFrames['lfr']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -92, -23)
+			savedFrames["lfr"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -92, -23)
 		elseif heroicVisible and mythicVisible or heroicVisible and normalVisible or mythicVisible and normalVisible then
-			savedFrames['lfr']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -60, -23)
+			savedFrames["lfr"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -60, -23)
 		elseif normalVisible or heroicVisible or mythicVisible then
-			savedFrames['lfr']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', -28, -23)
+			savedFrames["lfr"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", -28, -23)
 		else
-			savedFrames['lfr']:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', 4, -23)
+			savedFrames["lfr"]:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", 4, -23)
 		end
 	end
 end
@@ -333,14 +333,14 @@ end
 local function ShowTooltip(frame)
 	local info = frame.instanceInfo
 
-	GameTooltip:SetOwner(frame, 'ANCHOR_BOTTOMRIGHT')
-	GameTooltip:SetText(info.instanceName .. ' (' .. info.difficultyName .. ')')
+	GameTooltip:SetOwner(frame, "ANCHOR_BOTTOMRIGHT")
+	GameTooltip:SetText(info.instanceName .. " (" .. info.difficultyName .. ")")
 
 	for i, boss in ipairs(info.bosses) do
 		if boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, L['Defeated'], 1, 1, 1, 1, 0, 0)
+			GameTooltip:AddDoubleLine(boss.name, L["Defeated"], 1, 1, 1, 1, 0, 0)
 		elseif not info.complete and not boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, L['Available'], 1, 1, 1, 0, 1, 0)
+			GameTooltip:AddDoubleLine(boss.name, L["Available"], 1, 1, 1, 0, 1, 0)
 		end
 	end
 	GameTooltip:Show()
@@ -351,54 +351,54 @@ local function hideTooltip(frame)
 end
 
 local function CreateStatusFrame(instanceFrame, difficulty)
-	local statusFrame = CreateFrame('Frame', nil, instanceFrame)
+	local statusFrame = CreateFrame("Frame", nil, instanceFrame)
 	statusFrame:Hide()
 
-	statusFrame:SetScript('OnEnter', ShowTooltip)
-	statusFrame:SetScript('OnLeave', hideTooltip)
+	statusFrame:SetScript("OnEnter", ShowTooltip)
+	statusFrame:SetScript("OnLeave", hideTooltip)
 
 	-- skull flag
-	statusFrame.texture = statusFrame:CreateTexture(nil, 'ARTWORK')
-	statusFrame.texture:SetPoint('TOPLEFT')
+	statusFrame.texture = statusFrame:CreateTexture(nil, "ARTWORK")
+	statusFrame.texture:SetPoint("TOPLEFT")
 	statusFrame:SetSize(38, 46)
-	statusFrame.texture:SetTexture('Interface\\Minimap\\UI-DungeonDifficulty-Button')
+	statusFrame.texture:SetTexture("Interface\\Minimap\\UI-DungeonDifficulty-Button")
 	statusFrame.texture:SetSize(38, 46)
 
-	statusFrame:SetPoint('BOTTOMRIGHT', instanceFrame, 'BOTTOMRIGHT', 17, -12)
+	statusFrame:SetPoint("BOTTOMRIGHT", instanceFrame, "BOTTOMRIGHT", 17, -12)
 
-	if difficulty == 'mythic' then
+	if difficulty == "mythic" then
 		statusFrame.texture:SetTexCoord(0.30, 0.45, 0.0703125, 0.4296875)
-	elseif difficulty == 'heroic' then
+	elseif difficulty == "heroic" then
 		statusFrame.texture:SetTexCoord(0.05, 0.20, 0.0703125, 0.4296875)
 	else
 		statusFrame.texture:SetTexCoord(0.05, 0.20, 0.5703125, 0.9296875)
 	end
 
 	-- green check mark
-	local completeFrame = CreateFrame('Frame', nil, statusFrame)
+	local completeFrame = CreateFrame("Frame", nil, statusFrame)
 	completeFrame:Hide()
 
-	completeFrame.texture = completeFrame:CreateTexture(nil, 'ARTWORK', 'GreenCheckMarkTemplate')
+	completeFrame.texture = completeFrame:CreateTexture(nil, "ARTWORK", "GreenCheckMarkTemplate")
 	completeFrame:SetSize(16, 16)
 
-	if difficulty == 'lfr' or difficulty == 'normal' then
-		completeFrame:SetPoint('BOTTOM', statusFrame, 'BOTTOM', 0, 14)
+	if difficulty == "lfr" or difficulty == "normal" then
+		completeFrame:SetPoint("BOTTOM", statusFrame, "BOTTOM", 0, 14)
 	else
-		completeFrame:SetPoint('BOTTOM', statusFrame, 'BOTTOM', 0, 3)
+		completeFrame:SetPoint("BOTTOM", statusFrame, "BOTTOM", 0, 3)
 	end
 
 	completeFrame.texture:ClearAllPoints()
-	completeFrame.texture:SetPoint('TOPLEFT')
+	completeFrame.texture:SetPoint("TOPLEFT")
 	completeFrame.texture:Show()
 
 	-- progress
-	local progressFrame = statusFrame:CreateFontString(nil, nil, 'GameFontNormalLeft')
+	local progressFrame = statusFrame:CreateFontString(nil, nil, "GameFontNormalLeft")
 	progressFrame:Hide()
-	progressFrame:SetFont('Fonts\\ARIALN.TTF', 13)
-	if difficulty == 'lfr' or difficulty == 'normal' then
-		progressFrame:SetPoint('BOTTOM', statusFrame, 'BOTTOM', 0, 19)
+	progressFrame:SetFont("Fonts\\ARIALN.TTF", 13)
+	if difficulty == "lfr" or difficulty == "normal" then
+		progressFrame:SetPoint("BOTTOM", statusFrame, "BOTTOM", 0, 19)
 	else
-		progressFrame:SetPoint('BOTTOM', statusFrame, 'BOTTOM', 0, 8)
+		progressFrame:SetPoint("BOTTOM", statusFrame, "BOTTOM", 0, 8)
 	end
 	progressFrame:SetTextColor(1, 1, 1)
 
@@ -447,17 +447,17 @@ end
 
 -------------------
 
-eventFrame:RegisterEvent('PLAYER_LOGIN')
+eventFrame:RegisterEvent("PLAYER_LOGIN")
 local function OnEvent(self, event, ...)
-	if event == 'PLAYER_LOGIN' then
+	if event == "PLAYER_LOGIN" then
 		startTime = GetTime()
 	end
 end
-eventFrame:SetScript('OnEvent', OnEvent)
+eventFrame:SetScript("OnEvent", OnEvent)
 
 local function OnUpdate(self, elapsed)
-	if startTime >= 0 and GetTime() - startTime > 2 and IsAddOnLoaded('Blizzard_EncounterJournal') then
-		eventFrame:SetScript('OnUpdate', nil)
+	if startTime >= 0 and GetTime() - startTime > 2 and IsAddOnLoaded("Blizzard_EncounterJournal") then
+		eventFrame:SetScript("OnUpdate", nil)
 		startTime = nil
 
 		-- UpdateSavedInstances()
@@ -465,19 +465,19 @@ local function OnUpdate(self, elapsed)
 
 		local function UpdateFrames()
 			UpdateSavedInstances()
-			local b1 = _G['EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1']
+			local b1 = _G["EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1"]
 			if b1 then
 				UpdateInstanceStatusFrame(b1)
 			end
 			for i = 1, 100 do
-				local b = _G['EncounterJournalInstanceSelectScrollFrameinstance'..i]
+				local b = _G["EncounterJournalInstanceSelectScrollFrameinstance"..i]
 				if b then
 					UpdateInstanceStatusFrame(b)
 				end
 			end
 		end
-		hooksecurefunc('EncounterJournal_ListInstances', UpdateFrames)
+		hooksecurefunc("EncounterJournal_ListInstances", UpdateFrames)
 		EncounterJournal_ListInstances()
 	end
 end
-eventFrame:SetScript('OnUpdate', OnUpdate)
+eventFrame:SetScript("OnUpdate", OnUpdate)
