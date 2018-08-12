@@ -1,3 +1,7 @@
+### v1.1.0
+- [x] Added zhTW locale, thanks to BNSSNB
+- [x] Fixed Deadmines for french clients
+
 ### v1.0.9
 - [x] Minor code changes
 

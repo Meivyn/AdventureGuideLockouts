@@ -43,6 +43,7 @@ if locale == "frFR" then
 		["Coilfang: The Slave Pens"] = "Glissecroc : les Enclos aux esclaves",
 		["Coilfang: The Steamvault"] = "Glissecroc : le Caveau de la vapeur",
 		["Coilfang: The Underbog"] = "Glissecroc : la Basse-tourbière",
+		["Deadmines"] = "Mortemines",
 		["Defeated"] = "Vaincu",
 		["Hellfire Citadel: Ramparts"] = "Citadelle des Flammes infernales : les Remparts",
 		["Hellfire Citadel: The Blood Furnace"] = "Citadelle des Flammes infernales : la Fournaise du sang",
@@ -56,6 +57,33 @@ if locale == "frFR" then
 		["The Escape from Durnholde"] = "L'évasion de Fort-de-Durn",
 		["The Sunwell"] = "Le Puits de soleil",
 		["World Bosses"] = "Boss hors instance"
+	}
+elseif locale == "zhTW" then
+	L = {
+		["Assault on Violet Hold"] = "紫羅蘭堡之襲",
+		["Auchindoun: Auchenai Crypts"] = "奧齊頓：奧奇奈地穴",
+		["Auchindoun: Mana-Tombs"] = "奧齊頓：法力墓地",
+		["Auchindoun: Sethekk Halls"] = "奧齊頓：塞司克大廳",
+		["Auchindoun: Shadow Labyrinth"] = "奧齊頓：暗影迷宮",
+		["August Celestials"] = "天尊之廷",
+		["Available"] = "存活",
+		["Coilfang: Serpentshrine Cavern"] = "盤牙:毒蛇神殿洞穴",
+		["Coilfang: The Slave Pens"] = "盤牙:奴隸監獄",
+		["Coilfang: The Steamvault"] = "盤牙:蒸汽洞窟",
+		["Coilfang: The Underbog"] = "盤牙:深幽泥沼",
+		["Defeated"] = "已擊殺",
+		["Hellfire Citadel: Ramparts"] = "地獄火堡壘:地獄火壁壘",
+		["Hellfire Citadel: The Blood Furnace"] = "地獄火堡壘:血熔爐",
+		["Hellfire Citadel: The Shattered Halls"] = "地獄火堡壘:破碎大廳",
+		["Magister's Terrace"] = "博學者殿堂",
+		["Opening of the Dark Portal"] = "開啟黑暗之門",
+		["Tempest Keep"] = "風暴要塞",
+		["Tempest Keep: The Arcatraz"] = "風暴要塞：亞克崔茲",
+		["Tempest Keep: The Botanica"] = "風暴要塞:波塔尼卡",
+		["Tempest Keep: The Mechanar"] = "風暴要塞:麥克納爾",
+		["The Escape from Durnholde"] = "逃離敦霍爾德",
+		["The Sunwell"] = "太陽之井",
+		["World Bosses"] = "世界首領"
 	}
 end
 
@@ -247,6 +275,8 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(255)
 		elseif instanceName == L["Violet Hold"] and locale == "enUS" then
 			instanceName = EJ_GetInstanceInfo(283)
+		elseif instanceName == L['Deadmines'] and locale == "frFR" then
+			instanceName = EJ_GetInstanceInfo(63)
 		elseif instanceName == L["Assault on Violet Hold"] then
 			maxBosses = 3
 		end
