@@ -56,6 +56,7 @@ if locale == "frFR" then
 		["Tempest Keep: The Mechanar"] = "Donjon de la Tempête : le Méchanar",
 		["The Escape from Durnholde"] = "L'évasion de Fort-de-Durn",
 		["The Sunwell"] = "Le Puits de soleil",
+		["The Underrot"] = "Tréfonds Putrides",
 		["World Bosses"] = "Boss hors instance"
 	}
 elseif locale == "zhTW" then
@@ -277,6 +278,8 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(283)
 		elseif instanceName == L['Deadmines'] and locale == "frFR" then
 			instanceName = EJ_GetInstanceInfo(63)
+		elseif instanceName == L['The Underrot'] and locale == "frFR" then
+			instanceName = EJ_GetInstanceInfo(1022)
 		elseif instanceName == L["Assault on Violet Hold"] then
 			maxBosses = 3
 		end

@@ -1,3 +1,6 @@
+### v1.1.1
+- [x] Fixed The Underrot for french clients
+
 ### v1.1.0
 - [x] Added zhTW locale, thanks to BNSSNB
 - [x] Fixed Deadmines for french clients
