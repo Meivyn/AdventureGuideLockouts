@@ -300,12 +300,14 @@ local function UpdateSavedInstances()
 		end
 
 		local bosses = {}
-		for b = 1, maxBosses do
+		local b = 1
+		while GetSavedInstanceEncounterInfo(i, b) do
 			local bossName, _, isKilled = GetSavedInstanceEncounterInfo(i, b)
 			table.insert(bosses, {
 				name = bossName,
 				isKilled = isKilled
 			})
+			b = b + 1
 		end
 
 		if locked then

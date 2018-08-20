@@ -1,3 +1,6 @@
+### v1.1.3
+- [x] Fixed wrong tooltip after previous fix
+
 ### v1.1.2
 - [x] Fixed wrong boss count for Siege of Boralus
 
