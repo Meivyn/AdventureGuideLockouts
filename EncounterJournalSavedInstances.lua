@@ -19,6 +19,7 @@ local L = {
 	["Hellfire Citadel: The Shattered Halls"] = "Hellfire Citadel: The Shattered Halls",
 	["Magister's Terrace"] = "Magister's Terrace",
 	["Opening of the Dark Portal"] = "Opening of the Dark Portal",
+	["Siege of Boralus"] = "Siege of Boralus",
 	["Tempest Keep"] = "Tempest Keep",
 	["Tempest Keep: The Arcatraz"] = "Tempest Keep: The Arcatraz",
 	["Tempest Keep: The Botanica"] = "Tempest Keep: The Botanica",
@@ -50,6 +51,7 @@ if locale == "frFR" then
 		["Hellfire Citadel: The Shattered Halls"] = "Citadelle des Flammes infernales : les Salles brisées",
 		["Magister's Terrace"] = "Terrasse des magistères",
 		["Opening of the Dark Portal"] = "Ouverture de la Porte des ténèbres",
+		["Siege of Boralus"] = "Siège de Boralus",
 		["Tempest Keep"] = "Donjon de la Tempête",
 		["Tempest Keep: The Arcatraz"] = "Donjon de la Tempête : l'Arcatraz",
 		["Tempest Keep: The Botanica"] = "Donjon de la Tempête : la Botanica",
@@ -282,6 +284,8 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(1022)
 		elseif instanceName == L["Assault on Violet Hold"] then
 			maxBosses = 3
+		elseif instanceName == L["Siege of Boralus"] then
+			maxBosses = 4
 		end
 		savedInstances[instanceName] = savedInstances[instanceName] or {}
 

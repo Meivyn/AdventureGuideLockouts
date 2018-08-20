@@ -1,3 +1,6 @@
+### v1.1.2
+- [x] Fixed wrong boss count for Siege of Boralus
+
 ### v1.1.1
 - [x] Fixed The Underrot for french clients
 
