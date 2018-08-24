@@ -88,6 +88,13 @@ elseif locale == "zhTW" then
 		["The Sunwell"] = "太陽之井",
 		["World Bosses"] = "世界首領"
 	}
+elseif locale == "deDE" then
+	L = {
+		["Shrine of the Storm"] = "Schrein des Sturms",
+		["Siege of Boralus"] = "Belagerung von Boralus",
+		["Temple of Sethraliss"] = "Tempel von Sethraliss",
+		["Waycrest Manor"] = "Kronsteiganwesen"
+	}
 end
 
 local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFrame", UIParent)
@@ -278,10 +285,18 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(255)
 		elseif instanceName == L["Violet Hold"] and locale == "enUS" then
 			instanceName = EJ_GetInstanceInfo(283)
-		elseif instanceName == L['Deadmines'] and locale == "frFR" then
+		elseif instanceName == L["Deadmines"] and locale == "frFR" then
 			instanceName = EJ_GetInstanceInfo(63)
-		elseif instanceName == L['The Underrot'] and locale == "frFR" then
+		elseif instanceName == L["The Underrot"] and locale == "frFR" then
 			instanceName = EJ_GetInstanceInfo(1022)
+		elseif instanceName == L["Shrine of the Storm"] and locale == "deDE" then
+			instanceName = EJ_GetInstanceInfo(1036)
+		elseif instanceName == L["Siege of Boralus"] and locale == "deDE" then
+			instanceName = EJ_GetInstanceInfo(1023)
+		elseif instanceName == L["Temple of Sethraliss"] and locale == "deDE" then
+			instanceName = EJ_GetInstanceInfo(1030)
+		elseif instanceName == L["Waycrest Manor"] and locale == "deDE" then
+			instanceName = EJ_GetInstanceInfo(1021)
 		elseif instanceName == L["Assault on Violet Hold"] then
 			maxBosses = 3
 		elseif instanceName == L["Siege of Boralus"] then
