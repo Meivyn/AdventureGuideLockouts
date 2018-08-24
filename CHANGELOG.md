@@ -1,3 +1,7 @@
+### v1.1.4
+- [x] Fixed some BfA dungeons for deDE locale
+- [x] Added license
+
 ### v1.1.3
 - [x] Fixed wrong tooltip after previous fix
 

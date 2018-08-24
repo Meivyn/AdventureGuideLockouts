@@ -3,6 +3,6 @@
 ## Notes: Adds instance status indicators to Encounter Journal.
 ## Notes-frFR: Ajoute des indicateurs de verrouillage d'instance au journal des rencontres.
 ## Author: Meivyn
-## Version: 1.1.3
+## Version: 1.1.4
 
 EncounterJournalSavedInstances.lua
