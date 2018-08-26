@@ -1,3 +1,6 @@
+### v1.1.5
+- [x] Fixed a major issue with locales wrongly creating a new table instead of replacing its values
+
 ### v1.1.4
 - [x] Fixed some BfA dungeons for deDE locale
 - [x] Added license
