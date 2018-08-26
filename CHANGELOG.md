@@ -1,3 +1,6 @@
+### v1.1.6
+- [x] Fixed King's Rest for german clients
+
 ### v1.1.5
 - [x] Fixed a major issue with locales wrongly creating a new table instead of replacing its values
 

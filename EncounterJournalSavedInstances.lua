@@ -19,6 +19,7 @@ local L = {
 	["Hellfire Citadel: Ramparts"] = "Hellfire Citadel: Ramparts",
 	["Hellfire Citadel: The Blood Furnace"] = "Hellfire Citadel: The Blood Furnace",
 	["Hellfire Citadel: The Shattered Halls"] = "Hellfire Citadel: The Shattered Halls",
+	["King's Rest"] = "King's Rest",
 	["Magister's Terrace"] = "Magister's Terrace",
 	["Opening of the Dark Portal"] = "Opening of the Dark Portal",
 	["Shrine of the Storm"] = "Shrine of the Storm",
@@ -91,6 +92,7 @@ elseif locale == "zhTW" then
 	L["The Sunwell"] = "太陽之井"
 	L["World Bosses"] = "世界首領"
 elseif locale == "deDE" then
+	L["King's Rest"] = "Königsruh"
 	L["Shrine of the Storm"] = "Schrein des Sturms"
 	L["Siege of Boralus"] = "Belagerung von Boralus"
 	L["Temple of Sethraliss"] = "Tempel von Sethraliss"
@@ -118,9 +120,11 @@ local function UpdateSavedInstances()
 	local fEid
 	local fQid
 	if UnitFactionGroup("player") == "Horde" then
-		fEid = 2212 fQid = 52848									-- The Lion's Roar
+		fEid = 2212													-- The Lion's Roar
+		fQid = 52848
 	else
-		fEid = 2213 fQid = 52847									-- Doom's Howl
+		fEid = 2213													-- Doom's Howl
+		fQid = 52847
 	end
 	local worldBossesData = {
 		Pandaria = {
@@ -289,6 +293,8 @@ local function UpdateSavedInstances()
 			instanceName = EJ_GetInstanceInfo(63)
 		elseif instanceName == L["The Underrot"] and locale == "frFR" then
 			instanceName = EJ_GetInstanceInfo(1022)
+		elseif instanceName == L["King's Rest"] and locale == "deDE" then
+			instanceName = EJ_GetInstanceInfo(1041)
 		elseif instanceName == L["Shrine of the Storm"] and locale == "deDE" then
 			instanceName = EJ_GetInstanceInfo(1036)
 		elseif instanceName == L["Siege of Boralus"] and locale == "deDE" then
