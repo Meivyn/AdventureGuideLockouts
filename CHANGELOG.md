@@ -1,3 +1,7 @@
+### v1.1.7
+- [x] Updated strings to use globals instead
+- [x] Added italian locale, thanks to z0fa
+
 ### v1.1.6
 - [x] Fixed King's Rest for german clients
 

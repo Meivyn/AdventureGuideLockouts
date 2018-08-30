@@ -8,14 +8,12 @@ local L = {
 	["Auchindoun: Sethekk Halls"] = "Auchindoun: Sethekk Halls",
 	["Auchindoun: Shadow Labyrinth"] = "Auchindoun: Shadow Labyrinth",
 	["August Celestials"] = "August Celestials",
-	["Available"] = "Available",
 	["Black Temple"] = "Black Temple",
 	["Coilfang: Serpentshrine Cavern"] = "Coilfang: Serpentshrine Cavern",
 	["Coilfang: The Slave Pens"] = "Coilfang: The Slave Pens",
 	["Coilfang: The Steamvault"] = "Coilfang: The Steamvault",
 	["Coilfang: The Underbog"] = "Coilfang: The Underbog",
 	["Deadmines"] = "Deadmines",
-	["Defeated"] = "Defeated",
 	["Hellfire Citadel: Ramparts"] = "Hellfire Citadel: Ramparts",
 	["Hellfire Citadel: The Blood Furnace"] = "Hellfire Citadel: The Blood Furnace",
 	["Hellfire Citadel: The Shattered Halls"] = "Hellfire Citadel: The Shattered Halls",
@@ -33,8 +31,7 @@ local L = {
 	["The Sunwell"] = "The Sunwell",
 	["The Underrot"] = "The Underrot",
 	["Violet Hold"] = "Violet Hold",
-	["Waycrest Manor"] = "Waycrest Manor",
-	["World Bosses"] = "World Bosses"
+	["Waycrest Manor"] = "Waycrest Manor"
 }
 
 if locale == "frFR" then
@@ -44,14 +41,12 @@ if locale == "frFR" then
 	L["Auchindoun: Sethekk Halls"] = "Auchindoun : Salles des Sethekk"
 	L["Auchindoun: Shadow Labyrinth"] = "Auchindoun : Labyrinthe des Ombres"
 	L["August Celestials"] = "Astres vénérables"
-	L["Available"] = "Disponible"
 	L["Black Temple"] = "Temple noir"
 	L["Coilfang: Serpentshrine Cavern"] = "Glissecroc : caverne du sanctuaire du Serpent"
 	L["Coilfang: The Slave Pens"] = "Glissecroc : les Enclos aux esclaves"
 	L["Coilfang: The Steamvault"] = "Glissecroc : le Caveau de la vapeur"
 	L["Coilfang: The Underbog"] = "Glissecroc : la Basse-tourbière"
 	L["Deadmines"] = "Mortemines"
-	L["Defeated"] = "Vaincu"
 	L["Hellfire Citadel: Ramparts"] = "Citadelle des Flammes infernales : les Remparts"
 	L["Hellfire Citadel: The Blood Furnace"] = "Citadelle des Flammes infernales : la Fournaise du sang"
 	L["Hellfire Citadel: The Shattered Halls"] = "Citadelle des Flammes infernales : les Salles brisées"
@@ -65,7 +60,6 @@ if locale == "frFR" then
 	L["The Escape from Durnholde"] = "L'évasion de Fort-de-Durn"
 	L["The Sunwell"] = "Le Puits de soleil"
 	L["The Underrot"] = "Tréfonds Putrides"
-	L["World Bosses"] = "Boss hors instance"
 elseif locale == "zhTW" then
 	L["Assault on Violet Hold"] = "紫羅蘭堡之襲"
 	L["Auchindoun: Auchenai Crypts"] = "奧齊頓：奧奇奈地穴"
@@ -73,30 +67,31 @@ elseif locale == "zhTW" then
 	L["Auchindoun: Sethekk Halls"] = "奧齊頓：塞司克大廳"
 	L["Auchindoun: Shadow Labyrinth"] = "奧齊頓：暗影迷宮"
 	L["August Celestials"] = "天尊之廷"
-	L["Available"] = "存活"
 	L["Coilfang: Serpentshrine Cavern"] = "盤牙:毒蛇神殿洞穴"
 	L["Coilfang: The Slave Pens"] = "盤牙:奴隸監獄"
 	L["Coilfang: The Steamvault"] = "盤牙:蒸汽洞窟"
 	L["Coilfang: The Underbog"] = "盤牙:深幽泥沼"
-	L["Defeated"] = "已擊殺"
 	L["Hellfire Citadel: Ramparts"] = "地獄火堡壘:地獄火壁壘"
 	L["Hellfire Citadel: The Blood Furnace"] = "地獄火堡壘:血熔爐"
 	L["Hellfire Citadel: The Shattered Halls"] = "地獄火堡壘:破碎大廳"
 	L["Magister's Terrace"] = "博學者殿堂"
 	L["Opening of the Dark Portal"] = "開啟黑暗之門"
+	L["Siege of Boralus"] = "波拉勒斯圍城戰"
 	L["Tempest Keep"] = "風暴要塞"
 	L["Tempest Keep: The Arcatraz"] = "風暴要塞：亞克崔茲"
 	L["Tempest Keep: The Botanica"] = "風暴要塞:波塔尼卡"
 	L["Tempest Keep: The Mechanar"] = "風暴要塞:麥克納爾"
 	L["The Escape from Durnholde"] = "逃離敦霍爾德"
 	L["The Sunwell"] = "太陽之井"
-	L["World Bosses"] = "世界首領"
 elseif locale == "deDE" then
 	L["King's Rest"] = "Königsruh"
 	L["Shrine of the Storm"] = "Schrein des Sturms"
 	L["Siege of Boralus"] = "Belagerung von Boralus"
 	L["Temple of Sethraliss"] = "Tempel von Sethraliss"
 	L["Waycrest Manor"] = "Kronsteiganwesen"
+elseif locale == "itIT" then
+	L["August Celestials"] = "Venerabili Celestiali"
+	L["Siege of Boralus"] = "Assedio di Boralus"
 end
 
 local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFrame", UIParent)
@@ -233,7 +228,7 @@ local function UpdateSavedInstances()
 					bosses = worldBosses[z],
 					instanceName = worldBossesData[z].instanceName,
 					difficulty = difficulty,
-					difficultyName = L["World Bosses"],
+					difficultyName = RAID_INFO_WORLD_BOSS,
 					maxBosses = worldBossesData[z].maxBosses,
 					defeatedBosses = defeatedBosses,
 					progress = defeatedBosses.."/"..maxBosses,
@@ -399,9 +394,9 @@ local function ShowTooltip(frame)
 
 	for i, boss in ipairs(info.bosses) do
 		if boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, L["Defeated"], 1, 1, 1, 1, 0, 0)
+			GameTooltip:AddDoubleLine(boss.name, BOSS_DEAD, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
 		elseif not info.complete and not boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, L["Available"], 1, 1, 1, 0, 1, 0)
+			GameTooltip:AddDoubleLine(boss.name, BOSS_ALIVE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
 		end
 	end
 	GameTooltip:Show()
