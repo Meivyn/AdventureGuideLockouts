@@ -306,8 +306,6 @@ local function UpdateSavedInstances()
 		end
 		savedInstances[instanceName] = savedInstances[instanceName] or {}
 
-		local difficulty = "normal"
-
 		if instanceDifficulty == 7 or instanceDifficulty == 17 then
 			difficulty = "lfr"
 		elseif instanceDifficulty == 2 or instanceDifficulty == 5 or instanceDifficulty == 6 or instanceDifficulty == 15 then
@@ -388,15 +386,15 @@ end
 
 local function ShowTooltip(frame)
 	local info = frame.instanceInfo
-
-	GameTooltip:SetOwner(frame, "ANCHOR_BOTTOMRIGHT")
-	GameTooltip:SetText(info.instanceName .. " (" .. info.difficultyName .. ")")
-
-	for i, boss in ipairs(info.bosses) do
-		if boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, BOSS_DEAD, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
-		elseif not info.complete and not boss.isKilled then
-			GameTooltip:AddDoubleLine(boss.name, BOSS_ALIVE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+	GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
+	if info.defeatedBosses > 0 then
+		GameTooltip:SetText(info.instanceName.." ("..info.difficultyName..")")
+		for i, boss in ipairs(info.bosses) do
+			if boss.isKilled then
+				GameTooltip:AddDoubleLine(boss.name, BOSS_DEAD, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+			elseif not info.complete then
+				GameTooltip:AddDoubleLine(boss.name, BOSS_ALIVE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+			end
 		end
 	end
 	GameTooltip:Show()
