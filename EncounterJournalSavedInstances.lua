@@ -121,6 +121,7 @@ local function UpdateSavedInstances()
 		fEid = 2213													-- Doom's Howl
 		fQid = 52847
 	end
+
 	local worldBossesData = {
 		Pandaria = {
 			instanceName = pandaria,
@@ -191,19 +192,14 @@ local function UpdateSavedInstances()
 			}
 		}
 	}
-
-	for z, wb in pairs(worldBossesData) do
-		for n = 1, #wb.bosses do
-			if IsQuestFlaggedCompleted(wb.bosses[n].quest) then
-				savedInstances[wb.instanceName] = savedInstances[wb.instanceName] or {}
-			end
-		end
-	end
-
+	
 	local worldBosses = {}
 	for z, wb in pairs(worldBossesData) do
 		worldBosses[z] = worldBosses[z] or {}
 		for n = 1, #wb.bosses do
+			if IsQuestFlaggedCompleted(wb.bosses[n].quest) then
+				savedInstances[wb.instanceName] = savedInstances[wb.instanceName] or {}
+			end
 			if not wb.bosses[n].name then
 				wb.bosses[n].name = EJ_GetEncounterInfo(wb.bosses[n].encounter)
 			end
@@ -237,9 +233,11 @@ local function UpdateSavedInstances()
 			end
 		end
 	end
-
+	
+	RequestRaidInfo()
 	for i = 1, GetNumSavedInstances() do
-		local instanceName, _, _, instanceDifficulty, locked, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+		local instanceName, _, reset, instanceDifficulty, _, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+
 		if instanceName == L["Ahn'Qiraj Temple"] and locale == "enUS" then
 			instanceName = EJ_GetInstanceInfo(744)
 		elseif instanceName == L["Coilfang: Serpentshrine Cavern"] then
@@ -304,7 +302,6 @@ local function UpdateSavedInstances()
 		elseif instanceName == L["Siege of Boralus"] then
 			maxBosses = 4
 		end
-		savedInstances[instanceName] = savedInstances[instanceName] or {}
 
 		if instanceDifficulty == 7 or instanceDifficulty == 17 then
 			difficulty = "lfr"
@@ -325,7 +322,8 @@ local function UpdateSavedInstances()
 			b = b + 1
 		end
 
-		if locked then
+		if reset > 0 and defeatedBosses > 0 then
+			savedInstances[instanceName] = savedInstances[instanceName] or {}
 			table.insert(savedInstances[instanceName], {
 				bosses = bosses,
 				instanceName = instanceName,
@@ -335,8 +333,7 @@ local function UpdateSavedInstances()
 				maxBosses = maxBosses,
 				defeatedBosses = defeatedBosses,
 				progress = defeatedBosses.."/"..maxBosses,
-				complete = locked and defeatedBosses == maxBosses,
-				locked = locked
+				complete = defeatedBosses == maxBosses
 			})
 		end
 	end
@@ -513,9 +510,6 @@ local function OnUpdate(self, elapsed)
 	if startTime >= 0 and GetTime() - startTime > 2 and IsAddOnLoaded("Blizzard_EncounterJournal") then
 		eventFrame:SetScript("OnUpdate", nil)
 		startTime = nil
-
-		-- UpdateSavedInstances()
-		-- texplore(savedInstances)
 
 		local function UpdateFrames()
 			UpdateSavedInstances()
