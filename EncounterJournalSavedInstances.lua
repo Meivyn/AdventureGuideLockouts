@@ -506,7 +506,7 @@ local function OnUpdate(self, elapsed)
 			end
 		end
 		hooksecurefunc("EncounterJournal_ListInstances", UpdateFrames)
-		EncounterJournal_ListInstances()
+		UpdateFrames()
 	end
 end
 eventFrame:SetScript("OnUpdate", OnUpdate)
