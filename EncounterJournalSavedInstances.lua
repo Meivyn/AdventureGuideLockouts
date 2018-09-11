@@ -1,80 +1,149 @@
 local locale = GetLocale()
 
 local L = {
-	["Ahn'Qiraj Temple"] = "Ahn\'Qiraj Temple",
-	["Assault on Violet Hold"] = "Assault on Violet Hold",
-	["Auchindoun: Auchenai Crypts"] = "Auchindoun: Auchenai Crypts",
-	["Auchindoun: Mana-Tombs"] = "Auchindoun: Mana-Tombs",
-	["Auchindoun: Sethekk Halls"] = "Auchindoun: Sethekk Halls",
-	["Auchindoun: Shadow Labyrinth"] = "Auchindoun: Shadow Labyrinth",
 	["August Celestials"] = "August Celestials",
-	["Black Temple"] = "Black Temple",
-	["Coilfang: Serpentshrine Cavern"] = "Coilfang: Serpentshrine Cavern",
-	["Coilfang: The Slave Pens"] = "Coilfang: The Slave Pens",
-	["Coilfang: The Steamvault"] = "Coilfang: The Steamvault",
-	["Coilfang: The Underbog"] = "Coilfang: The Underbog",
-	["Deadmines"] = "Deadmines",
-	["Hellfire Citadel: Ramparts"] = "Hellfire Citadel: Ramparts",
-	["Hellfire Citadel: The Blood Furnace"] = "Hellfire Citadel: The Blood Furnace",
-	["Hellfire Citadel: The Shattered Halls"] = "Hellfire Citadel: The Shattered Halls",
-	["King's Rest"] = "King's Rest",
-	["Magister's Terrace"] = "Magister's Terrace",
-	["Opening of the Dark Portal"] = "Opening of the Dark Portal",
-	["Shrine of the Storm"] = "Shrine of the Storm",
-	["Siege of Boralus"] = "Siege of Boralus",
-	["Tempest Keep"] = "Tempest Keep",
-	["Tempest Keep: The Arcatraz"] = "Tempest Keep: The Arcatraz",
-	["Tempest Keep: The Botanica"] = "Tempest Keep: The Botanica",
-	["Tempest Keep: The Mechanar"] = "Tempest Keep: The Mechanar",
-	["Temple of Sethraliss"] = "Temple of Sethraliss",
-	["The Escape from Durnholde"] = "The Escape from Durnholde",
-	["The Sunwell"] = "The Sunwell",
-	["The Underrot"] = "The Underrot",
-	["Violet Hold"] = "Violet Hold",
-	["Waycrest Manor"] = "Waycrest Manor"
 }
 
-if locale == "frFR" then
-	L["Assault on Violet Hold"] = "L’assaut sur le fort Pourpre"
-	L["Auchindoun: Auchenai Crypts"] = "Auchindoun : Cryptes Auchenaï"
-	L["Auchindoun: Mana-Tombs"] = "Auchindoun : Tombes-mana"
-	L["Auchindoun: Sethekk Halls"] = "Auchindoun : Salles des Sethekk"
-	L["Auchindoun: Shadow Labyrinth"] = "Auchindoun : Labyrinthe des Ombres"
+if locale == "deDE" then
+	L["August Celestials"] = "Die Himmlischen Erhabenen"
+elseif locale == "frFR" then
 	L["August Celestials"] = "Astres vénérables"
-	L["Black Temple"] = "Temple noir"
-	L["Coilfang: Serpentshrine Cavern"] = "Glissecroc : caverne du sanctuaire du Serpent"
-	L["Coilfang: The Slave Pens"] = "Glissecroc : les Enclos aux esclaves"
-	L["Coilfang: The Steamvault"] = "Glissecroc : le Caveau de la vapeur"
-	L["Coilfang: The Underbog"] = "Glissecroc : la Basse-tourbière"
-	L["Deadmines"] = "Mortemines"
-	L["Hellfire Citadel: Ramparts"] = "Citadelle des Flammes infernales : les Remparts"
-	L["Hellfire Citadel: The Blood Furnace"] = "Citadelle des Flammes infernales : la Fournaise du sang"
-	L["Hellfire Citadel: The Shattered Halls"] = "Citadelle des Flammes infernales : les Salles brisées"
-	L["Magister's Terrace"] = "Terrasse des magistères"
-	L["Opening of the Dark Portal"] = "Ouverture de la Porte des ténèbres"
-	L["Siege of Boralus"] = "Siège de Boralus"
-	L["Tempest Keep"] = "Donjon de la Tempête"
-	L["Tempest Keep: The Arcatraz"] = "Donjon de la Tempête : l'Arcatraz"
-	L["Tempest Keep: The Botanica"] = "Donjon de la Tempête : la Botanica"
-	L["Tempest Keep: The Mechanar"] = "Donjon de la Tempête : le Méchanar"
-	L["The Escape from Durnholde"] = "L'évasion de Fort-de-Durn"
-	L["The Sunwell"] = "Le Puits de soleil"
-	L["The Underrot"] = "Tréfonds Putrides"
-elseif locale == "zhTW" then
-	L["Assault on Violet Hold"] = "紫羅蘭堡之襲"
-	L["August Celestials"] = "天尊之廷"
-	L["Siege of Boralus"] = "波拉勒斯圍城戰"
-elseif locale == "deDE" then
-	L["King's Rest"] = "Königsruh"
-	L["Shrine of the Storm"] = "Schrein des Sturms"
-	L["Siege of Boralus"] = "Belagerung von Boralus"
-	L["Temple of Sethraliss"] = "Tempel von Sethraliss"
-	L["Waycrest Manor"] = "Kronsteiganwesen"
 elseif locale == "itIT" then
-	L["Assault on Violet Hold"] = "Assalto alla Fortezza Violacea"
 	L["August Celestials"] = "Venerabili Celestiali"
-	L["Siege of Boralus"] = "Assedio di Boralus"
+elseif locale == "zhCN" then
+	L["August Celestials"] = "至尊天神"
+elseif locale == "zhTW" then
+	L["August Celestials"] = "天尊之廷"
 end
+
+local instancesData = {
+	[409] = 741,		-- Molten Core
+	[469] = 742,		-- Blackwing Lair
+	[509] = 743,		-- Ruins of Ahn'Qiraj
+	[531] = 744,		-- Temple of Ahn'Qiraj
+	[558] = 247,		-- Auchenai Crypts
+	[543] = 248,		-- Hellfire Ramparts
+	[585] = 249,		-- Magisters' Terrace
+	[557] = 250,		-- Mana-Tombs
+	[560] = 251,		-- Old Hillsbrad Foothills
+	[556] = 252,		-- Sethekk Halls
+	[555] = 253,		-- Shadow Labyrinth
+	[552] = 254,		-- The Arcatraz
+	[269] = 255,		-- The Black Morass
+	[542] = 256,		-- The Blood Furnace
+	[553] = 257,		-- The Botanica
+	[554] = 258,		-- The Mechanar
+	[540] = 259,		-- The Shattered Halls
+	[547] = 260,		-- The Slave Pens
+	[545] = 261,		-- The Steamvault
+	[546] = 262,		-- The Underbog
+	[532] = 745,		-- Karazhan
+	[565] = 746,		-- Gruul's Lair
+	[544] = 747,		-- Magtheridon's Lair
+	[548] = 748,		-- Serpentshrine Cavern
+	[550] = 749,		-- The Eye
+	[534] = 750,		-- The Battle for Mount Hyjal
+	[564] = 751,		-- Black Temple
+	[580] = 752,		-- Sunwell Plateau
+	[619] = 271,		-- Ahn'kahet: The Old Kingdom
+	[601] = 272,		-- Azjol-Nerub
+	[600] = 273,		-- Drak'Tharon Keep
+	[604] = 274,		-- Gundrak
+	[602] = 275,		-- Halls of Lightning
+	[668] = 276,		-- Halls of Reflection
+	[599] = 277,		-- Halls of Stone
+	[658] = 278,		-- Pit of Saron
+	[595] = 279,		-- The Culling of Stratholme
+	[632] = 280,		-- The Forge of Souls
+	[576] = 281,		-- The Nexus
+	[578] = 282,		-- The Oculus
+	[608] = 283,		-- The Violet Hold
+	[650] = 284,		-- Trial of the Champion
+	[574] = 285,		-- Utgarde Keep
+	[575] = 286,		-- Utgarde Pinnacle
+	[624] = 753,		-- Vault of Archavon
+	[533] = 754,		-- Naxxramas
+	[615] = 755,		-- The Obsidian Sanctum
+	[603] = 759,		-- Ulduar
+	[649] = 757,		-- Trial of the Crusader
+	[249] = 760,		-- Onyxia's Lair
+	[631] = 758,		-- Icecrown Citadel
+	[724] = 761,		-- The Ruby Sanctum		
+	[645] = 66,			-- Blackrock Caverns
+	[36] = 63,			-- Deadmines
+	[938] = 184,		-- End Time
+	[670] = 71,			-- Grim Batol
+	[644] = 70,			-- Halls of Origination
+	[940] = 186,		-- Hour of Twilight
+	[755] = 69,			-- Lost City of the Tol'vir
+	[33] = 64,			-- Shadowfang Keep
+	[752] = 67,			-- The Stonecore
+	[657] = 68,			-- The Vortex Pinnacle
+	[643] = 65,			-- Throne of the Tides
+	[939] = 185,		-- Well of Eternity
+	[568] = 77,			-- Zul'Aman
+	[859] = 76,			-- Zul'Gurub
+	[757] = 75,			-- Baradin Hold
+	[669] = 73,			-- Blackwing Descent
+	[671] = 72,			-- The Bastion of Twilight
+	[754] = 74,			-- Throne of the Four Winds
+	[720] = 78,			-- Firelands
+	[967] = 187,		-- Dragon Soul
+	[962] = 303,		-- Gate of the Setting Sun
+	[994] = 321,		-- Mogu'shan Palace
+	[1001] = 311,		-- Scarlet Halls
+	[1004] = 316,		-- Scarlet Monastery
+	[1007] = 246,		-- Scholomance
+	[959] = 312,		-- Shado-Pan Monastery
+	[1011] = 324,		-- Siege of Niuzao Temple
+	[961] = 302,		-- Stormstout Brewery
+	[960] = 313,		-- Temple of the Jade Serpent
+	[1008] = 317,		-- Mogu'shan Vaults
+	[1009] = 330,		-- Heart of Fear
+	[996] = 320,		-- Terrace of Endless Spring
+	[1098] = 362,		-- Throne of Thunder
+	[1136] = 369,		-- Siege of Orgrimmar		
+	[1182] = 547,		-- Auchindoun
+	[1175] = 385,		-- Bloodmaul Slag Mines
+	[1208] = 536,		-- Grimrail Depot
+	[1195] = 558,		-- Iron Docks
+	[1176] = 537,		-- Shadowmoon Burial Grounds
+	[1209] = 476,		-- Skyreach
+	[1279] = 556,		-- The Everbloom
+	[1358] = 559,		-- Upper Blackrock Spire
+	[1228] = 477,		-- Highmaul
+	[1205] = 457,		-- Blackrock Foundry
+	[1448] = 669,		-- Hellfire Citadel
+	[1544] = 777,		-- Assault on Violet Hold
+	[1501] = 740,		-- Black Rook Hold
+	[1677] = 900,		-- Cathedral of Eternal Night
+	[1571] = 800,		-- Court of Stars
+	[1466] = 762,		-- Darkheart Thicket
+	[1456] = 716,		-- Eye of Azshara
+	[1477] = 721,		-- Halls of Valor
+	[1492] = 727,		-- Maw of Souls
+	[1458] = 767,		-- Neltharion's Lair
+	[1651] = 860,		-- Return to Karazhan
+	[1753] = 945,		-- Seat of the Triumvirate
+	[1516] = 726,		-- The Arcway
+	[1493] = 707,		-- Vault of the Wardens
+	[1520] = 768,		-- The Emerald Nightmare
+	[1648] = 861,		-- Trial of Valor
+	[1530] = 786,		-- The Nighthold
+	[1676] = 875,		-- Tomb of Sargeras
+	[1712] = 946,		-- Antorus, the Burning Throne
+	[1763] = 968,		-- Atal'Dazar
+	[1754] = 1001,		-- Freehold
+	[1762] = 1041,		-- Kings' Rest
+	[1864] = 1036,		-- Shrine of the Storm
+	[1822] = 1023,		-- Siege of Boralus
+	[1877] = 1030,		-- Temple of Sethraliss
+	[1594] = 1012,		-- The MOTHERLODE!!
+	[1841] = 1022,		-- The Underrot
+	[1771] = 1002,		-- Tol Dagor
+	[1862] = 1021,		-- Waycrest Manor
+	[1861] = 1031		-- Uldir
+}
 
 local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFrame", UIParent)
 eventFrame:Show()
@@ -218,71 +287,22 @@ local function UpdateSavedInstances()
 	RequestRaidInfo()
 	for i = 1, GetNumSavedInstances() do
 		local instanceName, _, reset, instanceDifficulty, _, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+		local instanceLink = GetSavedInstanceChatLink(i) or ""
+		local instanceID = tonumber(instanceLink:match(":(%d+)"))
 
-		if instanceName == L["Ahn'Qiraj Temple"] and locale == "enUS" then
-			instanceName = EJ_GetInstanceInfo(744)
-		elseif instanceName == L["Coilfang: Serpentshrine Cavern"] then
-			instanceName = EJ_GetInstanceInfo(748)
-		elseif instanceName == L["Tempest Keep"] then
-			instanceName = EJ_GetInstanceInfo(749)
-		elseif instanceName == L["Black Temple"] and locale == "frFR" then
-			instanceName = EJ_GetInstanceInfo(751)
-		elseif instanceName == L["The Sunwell"] then
-			instanceName = EJ_GetInstanceInfo(752)
-		elseif instanceName == L["Magister's Terrace"] then
-			instanceName = EJ_GetInstanceInfo(249)
-		elseif instanceName == L["Auchindoun: Sethekk Halls"] then
-			instanceName = EJ_GetInstanceInfo(252)
-		elseif instanceName == L["Auchindoun: Shadow Labyrinth"] then
-			instanceName = EJ_GetInstanceInfo(253)
-		elseif instanceName == L["Auchindoun: Auchenai Crypts"] then
-			instanceName = EJ_GetInstanceInfo(247)
-		elseif instanceName == L["Auchindoun: Mana-Tombs"] then
-			instanceName = EJ_GetInstanceInfo(250)
-		elseif instanceName == L["Tempest Keep: The Botanica"] then
-			instanceName = EJ_GetInstanceInfo(257)
-		elseif instanceName == L["Tempest Keep: The Mechanar"] then
-			instanceName = EJ_GetInstanceInfo(258)
-		elseif instanceName == L["Tempest Keep: The Arcatraz"] then
-			instanceName = EJ_GetInstanceInfo(254)
-		elseif instanceName == L["Coilfang: The Slave Pens"] then
-			instanceName = EJ_GetInstanceInfo(260)
-		elseif instanceName == L["Coilfang: The Steamvault"] then
-			instanceName = EJ_GetInstanceInfo(261)
-		elseif instanceName == L["Coilfang: The Underbog"] then
-			instanceName = EJ_GetInstanceInfo(262)
-		elseif instanceName == L["Hellfire Citadel: The Shattered Halls"] then
-			instanceName = EJ_GetInstanceInfo(259)
-		elseif instanceName == L["Hellfire Citadel: Ramparts"] then
-			instanceName = EJ_GetInstanceInfo(248)
-		elseif instanceName == L["Hellfire Citadel: The Blood Furnace"] then
-			instanceName = EJ_GetInstanceInfo(256)
-		elseif instanceName == L["The Escape from Durnholde"] then
-			instanceName = EJ_GetInstanceInfo(251)
-		elseif instanceName == L["Opening of the Dark Portal"] then
-			instanceName = EJ_GetInstanceInfo(255)
-		elseif instanceName == L["Violet Hold"] and locale == "enUS" then
-			instanceName = EJ_GetInstanceInfo(283)
-		elseif instanceName == L["Deadmines"] and locale == "frFR" then
-			instanceName = EJ_GetInstanceInfo(63)
-		elseif instanceName == L["The Underrot"] and locale == "frFR" then
-			instanceName = EJ_GetInstanceInfo(1022)
-		elseif instanceName == L["King's Rest"] and locale == "deDE" then
-			instanceName = EJ_GetInstanceInfo(1041)
-		elseif instanceName == L["Shrine of the Storm"] and locale == "deDE" then
-			instanceName = EJ_GetInstanceInfo(1036)
-		elseif instanceName == L["Siege of Boralus"] and locale == "deDE" then
-			instanceName = EJ_GetInstanceInfo(1023)
-			maxBosses = 4
-		elseif instanceName == L["Temple of Sethraliss"] and locale == "deDE" then
-			instanceName = EJ_GetInstanceInfo(1030)
-		elseif instanceName == L["Waycrest Manor"] and locale == "deDE" then
-			instanceName = EJ_GetInstanceInfo(1021)
-		elseif instanceName == L["Assault on Violet Hold"] then
+		for k, v in pairs(instancesData) do
+			if instanceID == k then
+				instanceID = v
+			end
+		end
+
+		if instanceID == 777 then
 			maxBosses = 3
-		elseif instanceName == L["Siege of Boralus"] then
+		elseif instanceID == 1023 then
 			maxBosses = 4
 		end
+
+		local difficulty = "normal"
 
 		if instanceDifficulty == 7 or instanceDifficulty == 17 then
 			difficulty = "lfr"
@@ -304,8 +324,8 @@ local function UpdateSavedInstances()
 		end
 
 		if reset > 0 and defeatedBosses > 0 then
-			savedInstances[instanceName] = savedInstances[instanceName] or {}
-			tinsert(savedInstances[instanceName], {
+			savedInstances[instanceID] = savedInstances[instanceID] or {}
+			tinsert(savedInstances[instanceID], {
 				bosses = bosses,
 				instanceName = instanceName,
 				instanceDifficulty = instanceDifficulty,
@@ -452,7 +472,7 @@ local function UpdateInstanceStatusFrame(instanceButton)
 		end
 	end
 
-	local instances = savedInstances[instanceButton.tooltipTitle]
+	local instances = savedInstances[instanceButton.instanceID]
 	if instances == nil then
 		return
 	end
