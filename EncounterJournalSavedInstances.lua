@@ -314,8 +314,13 @@ local function UpdateSavedInstances()
 
 		local bosses = {}
 		local b = 1
+		local encounters = {2168, 2167, 2169, 2146, 2166, 2195, 2194, 2147}
 		while GetSavedInstanceEncounterInfo(i, b) do
 			local bossName, _, isKilled = GetSavedInstanceEncounterInfo(i, b)
+			if instanceID == 1031 then
+				local encounterID = table.remove(encounters, 1)
+				bossName = EJ_GetEncounterInfo(encounterID)
+			end
 			tinsert(bosses, {
 				name = bossName,
 				isKilled = isKilled
