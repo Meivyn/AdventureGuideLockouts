@@ -227,7 +227,7 @@ local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFra
 eventFrame:Show()
 
 local startTime = -1
-savedInstances = {}
+local savedInstances = {}
 local statusFrames = {}
 
 local function UpdateSavedInstances()
@@ -239,7 +239,7 @@ local function UpdateSavedInstances()
 		local instanceName, _, reset, instanceDifficulty, _, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
 		local instanceLink = GetSavedInstanceChatLink(i) or ""
 		local instanceID = tonumber(instanceLink:match(":(%d+)"))
-		
+
 		instanceID = instancesData[instanceID]
 
 		if instanceID == 777 then
