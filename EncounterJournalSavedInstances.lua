@@ -4,7 +4,7 @@ local pairs, ipairs, tonumber, match, tinsert, tremove
 local GetSavedInstanceInfo, GetNumSavedInstances, GetSavedInstanceEncounterInfo, GetSavedInstanceChatLink, UnitFactionGroup, RequestRaidInfo, GetQuestTagInfo, GetQuestTimeLeftMinutes, IsQuestFlaggedCompleted, EJ_GetInstanceInfo, EJ_GetEncounterInfo
     = GetSavedInstanceInfo, GetNumSavedInstances, GetSavedInstanceEncounterInfo, GetSavedInstanceChatLink, UnitFactionGroup, RequestRaidInfo, GetQuestTagInfo, C_TaskQuest.GetQuestTimeLeftMinutes, IsQuestFlaggedCompleted, EJ_GetInstanceInfo, EJ_GetEncounterInfo
 
-local BOSS_DEAD, BOSS_ALIVE, BOSS_UNAVAILABLE, WORLD_BOSS, REDFONT, GREENFONT, WHITEFONT, GRAYFONT
+local BOSS_DEAD, BOSS_ALIVE, BOSS_UNAVAILABLE, WORLD_BOSS, RED_FONT, GREEN_FONT, WHITE_FONT, GRAY_FONT
     = BOSS_DEAD, BOSS_ALIVE, QUEUE_TIME_UNAVAILABLE, RAID_INFO_WORLD_BOSS, RED_FONT_COLOR, GREEN_FONT_COLOR, HIGHLIGHT_FONT_COLOR, GRAY_FONT_COLOR
 
 local locale = GetLocale()
@@ -227,7 +227,7 @@ local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFra
 eventFrame:Show()
 
 local startTime = -1
-local savedInstances = {}
+savedInstances = {}
 local statusFrames = {}
 
 local function UpdateSavedInstances()
@@ -239,12 +239,8 @@ local function UpdateSavedInstances()
 		local instanceName, _, reset, instanceDifficulty, _, _, _, _, _, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
 		local instanceLink = GetSavedInstanceChatLink(i) or ""
 		local instanceID = tonumber(instanceLink:match(":(%d+)"))
-
-		for k, v in pairs(instancesData) do
-			if instanceID == k then
-				instanceID = v
-			end
-		end
+		
+		instanceID = instancesData[instanceID]
 
 		if instanceID == 777 then
 			maxBosses = 3
@@ -408,11 +404,11 @@ local function ShowTooltip(frame)
 		GameTooltip:SetText(info.instanceName.." ("..info.difficultyName..")")
 		for i, boss in ipairs(info.bosses) do
 			if boss.isKilled then
-				GameTooltip:AddDoubleLine(boss.name, BOSS_DEAD, WHITEFONT.r, WHITEFONT.g, WHITEFONT.b, REDFONT.r, REDFONT.g, REDFONT.b)
+				GameTooltip:AddDoubleLine(boss.name, BOSS_DEAD, WHITE_FONT.r, WHITE_FONT.g, WHITE_FONT.b, RED_FONT.r, RED_FONT.g, RED_FONT.b)
 			elseif boss.isAvailable ~= nil and not boss.isAvailable then
-				GameTooltip:AddDoubleLine(boss.name, BOSS_UNAVAILABLE, WHITEFONT.r, WHITEFONT.g, WHITEFONT.b, GRAYFONT.r, GRAYFONT.g, GRAYFONT.b)
+				GameTooltip:AddDoubleLine(boss.name, BOSS_UNAVAILABLE, WHITE_FONT.r, WHITE_FONT.g, WHITE_FONT.b, GRAY_FONT.r, GRAY_FONT.g, GRAY_FONT.b)
 			else
-				GameTooltip:AddDoubleLine(boss.name, BOSS_ALIVE, WHITEFONT.r, WHITEFONT.g, WHITEFONT.b, GREENFONT.r, GREENFONT.g, GREENFONT.b)
+				GameTooltip:AddDoubleLine(boss.name, BOSS_ALIVE, WHITE_FONT.r, WHITE_FONT.g, WHITE_FONT.b, GREEN_FONT.r, GREEN_FONT.g, GREEN_FONT.b)
 			end
 		end
 	end

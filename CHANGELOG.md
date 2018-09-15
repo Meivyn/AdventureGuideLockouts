@@ -1,3 +1,6 @@
+### v1.2.1
+- [x] Fixed instances ``instanceID`` match with EJ
+
 ### v1.2.0
 - [x] Reworked the addon so frames will now be matched with EJ tiles according to its ``instanceID`` attribute instead of ``tooltipTitle``, so no more locale dependant!
 - [x] Azeroth's World Bosses lockout tooltip will now display the unavailable status of inactive bosses, as well as the status of the Warfront boss
