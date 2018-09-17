@@ -71,6 +71,7 @@ local instancesData = {
 	[624] = 753,	-- Vault of Archavon
 	[533] = 754,	-- Naxxramas
 	[615] = 755,	-- The Obsidian Sanctum
+	[616] = 756,	-- The Eye of Eternity
 	[603] = 759,	-- Ulduar
 	[649] = 757,	-- Trial of the Crusader
 	[249] = 760,	-- Onyxia's Lair
