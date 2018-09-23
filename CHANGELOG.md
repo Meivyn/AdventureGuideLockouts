@@ -1,3 +1,7 @@
+### v1.2.2
+- [x] Fixed a crash caused by the missing The Eye of Eternity raid in ``instancesData``
+- [x] Azeroth's World Bosses availability should now be fixed
+
 ### v1.2.1
 - [x] Fixed instances ``instanceID`` match with EJ
 
