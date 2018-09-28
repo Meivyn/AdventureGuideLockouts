@@ -327,7 +327,8 @@ local function UpdateSavedInstances()
 			})
 			if instanceID == 1028 then
 				if i == 4 then
-					worldBosses[1028][i].isAvailable = isBossAvailable 
+					worldBosses[1028][i].isAvailable = isBossAvailable
+					worldBosses[1028][i].isKilled = worldBosses[1028][i].isKilled and isBossAvailable
 				else
 					worldBosses[1028][i].isAvailable = GetQuestTimeLeftMinutes(boss.quest) > 0
 				end
