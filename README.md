@@ -1,5 +1,4 @@
 # Encounter Journal Saved Instances
-## About
 Encounter Journal Saved Instances is a light-weight utility addon that tracks instance lockouts in the Encounter Journal (Adventure Guide).
 
 The addon displays small flags next to the icons of saved instances. Each difficulty of an instance will have a dedicated flag, displaying details such as available and killed bosses. Tracking is also available for world bosses and LFR.
