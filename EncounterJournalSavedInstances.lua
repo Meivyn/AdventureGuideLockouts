@@ -76,7 +76,7 @@ local instancesData = {
 	[649] = 757,	-- Trial of the Crusader
 	[249] = 760,	-- Onyxia's Lair
 	[631] = 758,	-- Icecrown Citadel
-	[724] = 761,	-- The Ruby Sanctum		
+	[724] = 761,	-- The Ruby Sanctum
 	[645] = 66,  	-- Blackrock Caverns
 	[36] = 63,  	-- Deadmines
 	[938] = 184,	-- End Time
@@ -110,7 +110,7 @@ local instancesData = {
 	[1009] = 330,	-- Heart of Fear
 	[996] = 320,	-- Terrace of Endless Spring
 	[1098] = 362,	-- Throne of Thunder
-	[1136] = 369,	-- Siege of Orgrimmar		
+	[1136] = 369,	-- Siege of Orgrimmar
 	[1182] = 547,	-- Auchindoun
 	[1175] = 385,	-- Bloodmaul Slag Mines
 	[1208] = 536,	-- Grimrail Depot
@@ -150,7 +150,9 @@ local instancesData = {
 	[1841] = 1022,	-- The Underrot
 	[1771] = 1002,	-- Tol Dagor
 	[1862] = 1021,	-- Waycrest Manor
-	[1861] = 1031	-- Uldir
+	[1861] = 1031,	-- Uldir
+	[2070] = 1176,	-- Battle of Dazar'alor
+	[2096] = 1177	-- Crucible of Storms
 }
 
 local worldBossesData = {
@@ -302,7 +304,7 @@ local function UpdateSavedInstances()
 			worldBossesData[1028].maxBosses = 2
 		end
 	else
-		worldBossesData[1028].bosses[4].encounter = 2213    
+		worldBossesData[1028].bosses[4].encounter = 2213
 		worldBossesData[1028].bosses[4].quest = 52847
 
 		if state == 1 or state == 2 then
@@ -310,7 +312,7 @@ local function UpdateSavedInstances()
 			worldBossesData[1028].maxBosses = 2
 		end
 	end
-	
+
 	local worldBosses = {}
 	for instanceID, data in pairs(worldBossesData) do
 		worldBosses[instanceID] = worldBosses[instanceID] or {}
@@ -345,7 +347,7 @@ local function UpdateSavedInstances()
 				defeatedBosses = defeatedBosses + 1
 			end
 		end
-		
+
 		if savedInstances[instanceID] then
 			if defeatedBosses > 0 then
 				tinsert(savedInstances[instanceID], {

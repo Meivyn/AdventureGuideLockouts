@@ -1,3 +1,7 @@
+### v1.2.4
+- [x] Updated for patch 8.1
+- [x] New README, thanks to Willexan
+
 ### v1.2.3
 - [x] Warfront boss should no longer be flagged as killed if your faction doesn't have access to it
 
