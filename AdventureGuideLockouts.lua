@@ -226,7 +226,7 @@ local worldBossesData = {
 	}
 }
 
-local eventFrame = CreateFrame("Frame", "EncounterJournalSavedInstances_EventFrame", UIParent)
+local eventFrame = CreateFrame("Frame", "AdventureGuideLockouts_EventFrame", UIParent)
 eventFrame:Show()
 
 local startTime = -1
