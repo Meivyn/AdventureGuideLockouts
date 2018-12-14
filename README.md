@@ -5,6 +5,10 @@ The add-on displays small flags next to the icons of saved instances. Each diffi
 
 The add-on allows players to check lockouts at a glance by placing information that is inconvenient to reach to a frequently accessed interface panel. This information is especially useful when deciding which group to join in the Premade Groups tool or when farming transmog in legacy content.
 
+## Known issues
+
+ - New world bosses of Darkshore warfront aren't implemented yet
+
 ## Acknowledgements
 Encounter Journal Saved Instances is a fork and continuation of [Adventure Guide Saved Instances](https://wow.curseforge.com/projects/adventure-guide-saved-instances). 
 
