@@ -1,3 +1,6 @@
+### v.1.2.6
+- [x] Attempt to implement new world bosses
+
 ### v1.2.5
 - [x] Changed add-on name to be more user-friendly
 
