@@ -1,5 +1,8 @@
 # Changelog
 
+## v.1.2.9
+- Fixed come minor code issues
+
 ## v1.2.8
 - Updated with new bosses and instances from the upcoming patch 8.2
 - Status frames will now be updated in real-time
