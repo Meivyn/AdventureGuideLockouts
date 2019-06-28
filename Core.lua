@@ -7,45 +7,45 @@ local tinsert = tinsert
 local tonumber = tonumber
 
 -- WoW API / Variables
-local UnitFactionGroup = UnitFactionGroup
 local C_ContributionCollector_GetState = C_ContributionCollector.GetState
 local C_TaskQuest_GetQuestTimeLeftMinutes = C_TaskQuest.GetQuestTimeLeftMinutes
-local Enum_ContributionState = Enum.ContributionState
-local EJ_GetInstanceInfo = EJ_GetInstanceInfo
+local CreateFrame = CreateFrame
 local EJ_GetEncounterInfo = EJ_GetEncounterInfo
-local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
+local EJ_GetInstanceInfo = EJ_GetInstanceInfo
+local Enum_ContributionState = Enum.ContributionState
+local GameTooltip = GameTooltip
 local GetAchievementInfo = GetAchievementInfo
-local RequestRaidInfo = RequestRaidInfo
+local GetDifficultyInfo = GetDifficultyInfo
 local GetNumSavedInstances = GetNumSavedInstances
-local GetSavedInstanceInfo = GetSavedInstanceInfo
 local GetSavedInstanceChatLink = GetSavedInstanceChatLink
 local GetSavedInstanceEncounterInfo = GetSavedInstanceEncounterInfo
-local GetDifficultyInfo = GetDifficultyInfo
-local CreateFrame = CreateFrame
+local GetSavedInstanceInfo = GetSavedInstanceInfo
 local hooksecurefunc = hooksecurefunc
-local GameTooltip = GameTooltip
+local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
+local RequestRaidInfo = RequestRaidInfo
+local UnitFactionGroup = UnitFactionGroup
 
-local RAID_INFO_WORLD_BOSS = RAID_INFO_WORLD_BOSS
-local BOSS_DEAD = BOSS_DEAD
 local BOSS_ALIVE = BOSS_ALIVE
+local BOSS_DEAD = BOSS_DEAD
 local QUEUE_TIME_UNAVAILABLE = QUEUE_TIME_UNAVAILABLE
+local RAID_INFO_WORLD_BOSS = RAID_INFO_WORLD_BOSS
+local GRAY_FONT_COLOR = GRAY_FONT_COLOR
+local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local RED_FONT_COLOR = RED_FONT_COLOR
-local GREEN_FONT_COLOR = GREEN_FONT_COLOR
-local GRAY_FONT_COLOR = GRAY_FONT_COLOR
 
-local AddOnName, AddOn = ...
-_G[AddOnName] = AddOn
+local _, AddOn = ...
+--_G[AddOnName] = AddOn
 
--- local function debug(v)
---   if type(v) == "string" then
---     print("|cff00aeff["..AddOnName.."]:|r "..v)
---   elseif type(v) == "table" then
---     LoadAddOn("Blizzard_DebugTools")
---     print("|cff00aeff["..AddOnName.."]:|r ")
---     DevTools_Dump(v)
---   end
+--local function debug(v)
+-- if type(v) == "string" then
+--   print("|cff00aeff["..AddOnName.."]:|r "..v)
+-- elseif type(v) == "table" then
+--   LoadAddOn("Blizzard_DebugTools")
+--   print("|cff00aeff["..AddOnName.."]:|r ")
+--   DevTools_Dump(v)
 -- end
+--end
 
 function AddOn:RequestWarfrontInfo()
   local stromgardeState, darkshoreState
@@ -71,7 +71,7 @@ function AddOn:RequestWarfrontInfo()
   self.isStromgardeAvailable = false
   self.isDarkshoreAvailable = false
 
-  if (stromgardeState == Enum_ContributionState.Building or stromgardeState == Enum_ContributionState.Active) and (darkshoreState == Enum_ContributionState.Building or darkshoreState == Enum_ContributionState.Active) then
+  if stromgardeState == Enum_ContributionState.Building or stromgardeState == Enum_ContributionState.Active and darkshoreState == Enum_ContributionState.Building or darkshoreState == Enum_ContributionState.Active then
     self.isStromgardeAvailable = true
     self.isDarkshoreAvailable = true
     self.worldBosses[5].numEncounters = 3
@@ -118,16 +118,13 @@ end
 ---@return string, boolean @ bossName, isKilled
 function AddOn:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
   if encounterIndex > #self.worldBosses[instanceIndex].encounters then return end
-
   local bossName
   local isKilled = IsQuestFlaggedCompleted(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
-
   if self.worldBosses[instanceIndex].encounters[encounterIndex].name == " " then
     bossName = (select(2, GetAchievementInfo(7333))) -- "The Four Celestials"
   elseif not self.worldBosses[instanceIndex].encounters[encounterIndex].name then
     bossName = EJ_GetEncounterInfo(self.worldBosses[instanceIndex].encounters[encounterIndex].encounterID)
   end
-
   return bossName, isKilled
 end
 
@@ -147,10 +144,10 @@ function AddOn:UpdateSavedInstances()
       instanceName, instanceID, instanceReset, instanceDifficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, numCompleted = GetSavedInstanceInfo(instanceIndex)
       instanceID = self.instances[tonumber(GetSavedInstanceChatLink(instanceIndex):match(":(%d+)"))]
 
-      if instanceID == 777 then -- Fixes wrong encounters count for Assault on Violet Hold
-        numEncounters = 3
-      elseif instanceID == 1023 then -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
-        numEncounters = 4
+      if instanceID == 777 then
+        numEncounters = 3 -- Fixes wrong encounters count for Assault on Violet Hold
+      elseif instanceID == 1023 then
+        numEncounters = 4 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
       end
 
       local _, _, isHeroic, _, displayHeroic, displayMythic, _, isLFR = GetDifficultyInfo(instanceDifficulty)
@@ -165,9 +162,9 @@ function AddOn:UpdateSavedInstances()
       end
 
       while GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex) do
-        if instanceID == 1023 then -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
+        if instanceID == 1023 then
           if playerFaction == "Alliance" and encounterIndex == 1 or playerFaction == "Horde" and encounterIndex == 2 then
-            encounterIndex = encounterIndex + 1
+            encounterIndex = encounterIndex + 1 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
           end
         end
         local bossName, _, isKilled = GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex)
@@ -224,33 +221,20 @@ function AddOn:CreateStatusFrame(instanceButton, difficulty)
   local statusFrame = CreateFrame("Frame", nil, instanceButton)
   statusFrame:SetSize(38, 46)
   statusFrame:SetScript("OnEnter", function(frame)
-    local info = frame.instanceInfo
-
     GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
-    GameTooltip:SetText(info.instanceName.." ("..info.difficultyName..")")
-
-    for _, encounter in ipairs(info.encounters) do
+    GameTooltip:SetText(frame.instanceInfo.instanceName.." ("..frame.instanceInfo.difficultyName..")")
+    for _, encounter in ipairs(frame.instanceInfo.encounters) do
+      local r, g, b = GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b
+      local bossStatus = BOSS_ALIVE
       if encounter.isKilled then
-        GameTooltip:AddDoubleLine(
-                encounter.bossName, BOSS_DEAD,
-                HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b,
-                RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b
-        )
+        r, g, b = RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b
+        bossStatus = BOSS_DEAD
       elseif not encounter.isAvailable and encounter.isAvailable ~= nil then
-        GameTooltip:AddDoubleLine(
-                encounter.bossName, QUEUE_TIME_UNAVAILABLE,
-                HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b,
-                GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b
-        )
-      else
-        GameTooltip:AddDoubleLine(
-                encounter.bossName, BOSS_ALIVE,
-                HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b,
-                GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b
-        )
+        r, g, b = GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b
+        bossStatus = QUEUE_TIME_UNAVAILABLE
       end
+      GameTooltip:AddDoubleLine(encounter.bossName, bossStatus, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, r, g, b)
     end
-
     GameTooltip:Show()
   end)
   statusFrame:SetScript("OnLeave", function()
@@ -367,7 +351,6 @@ function AddOn:UpdateInstanceStatusFrame(instanceButton)
     else
       frame:Hide()
     end
-
     frame.instanceInfo = instance
   end
 
