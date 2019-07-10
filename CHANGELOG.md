@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.1
+- Updated Azeroth's world bosses count
+
 ## v1.3.0
 
 - Updated .toc for patch 8.2

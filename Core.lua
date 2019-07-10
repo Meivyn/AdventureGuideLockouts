@@ -74,13 +74,13 @@ function AddOn:RequestWarfrontInfo()
   if stromgardeState == Enum_ContributionState.Building or stromgardeState == Enum_ContributionState.Active and darkshoreState == Enum_ContributionState.Building or darkshoreState == Enum_ContributionState.Active then
     self.isStromgardeAvailable = true
     self.isDarkshoreAvailable = true
-    self.worldBosses[5].numEncounters = 3
+    self.worldBosses[5].numEncounters = 4
   elseif stromgardeState == Enum_ContributionState.Building or stromgardeState == Enum_ContributionState.Active then
     self.isStromgardeAvailable = true
-    self.worldBosses[5].numEncounters = 2
+    self.worldBosses[5].numEncounters = 3
   elseif darkshoreState == Enum_ContributionState.Building or darkshoreState == Enum_ContributionState.Active then
     self.isDarkshoreAvailable = true
-    self.worldBosses[5].numEncounters = 2
+    self.worldBosses[5].numEncounters = 3
   end
 end
 
