@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.2
+- Fixed warfront info incorrectly displaying both Stromgarde and Darkshore as available
+
 ## v1.3.1
 - Updated Azeroth's world bosses count
 
