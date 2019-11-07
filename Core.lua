@@ -51,19 +51,9 @@ function AddOn:RequestWarfrontInfo()
   local stromgardeState, darkshoreState
 
   if UnitFactionGroup("player") == "Horde" then
-    self.worldBosses[5].encounters[4].encounterID = 2212
-    self.worldBosses[5].encounters[4].questID = 52848
-    self.worldBosses[5].encounters[8].encounterID = 2329
-    self.worldBosses[5].encounters[8].questID = 54896
-
     stromgardeState = C_ContributionCollector_GetState(116)
     darkshoreState = C_ContributionCollector_GetState(117)
   else
-    self.worldBosses[5].encounters[4].encounterID = 2213
-    self.worldBosses[5].encounters[4].questID = 52847
-    self.worldBosses[5].encounters[8].encounterID = 2345
-    self.worldBosses[5].encounters[8].questID = 54895
-
     stromgardeState = C_ContributionCollector_GetState(11)
     darkshoreState = C_ContributionCollector_GetState(118)
   end
@@ -370,12 +360,19 @@ function AddOn:UpdateFrames()
   end
 end
 
-AddOn.eventFrame = CreateFrame("Frame")
-AddOn.eventFrame:RegisterEvent("ADDON_LOADED")
-AddOn.eventFrame:RegisterEvent("BOSS_KILL")
-AddOn.eventFrame:RegisterEvent("UPDATE_INSTANCE_INFO")
-AddOn.eventFrame:SetScript("OnEvent", function(self, event, arg1, ...)
-  if event == "ADDON_LOADED" and arg1 == "Blizzard_EncounterJournal" then
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("BOSS_KILL")
+frame:RegisterEvent("UPDATE_INSTANCE_INFO")
+frame:SetScript("OnEvent", function(self, event, arg1, ...)
+  if event == "PLAYER_ENTERING_WORLD" then
+    local factionGroup = UnitFactionGroup("player")
+    AddOn.worldBosses[5].encounters[4].encounterID = factionGroup == "Horde" and 2212 or 2213
+    AddOn.worldBosses[5].encounters[4].questID =  factionGroup == "Horde" and 52848 or 52847
+    AddOn.worldBosses[5].encounters[8].encounterID = factionGroup == "Horde" and 2329 or 2345
+    AddOn.worldBosses[5].encounters[8].questID =  factionGroup == "Horde" and 54896 or 54895
+  elseif event == "ADDON_LOADED" and arg1 == "Blizzard_EncounterJournal" then
     self:UnregisterEvent(event)
     _G.EncounterJournal:HookScript("OnShow", function() AddOn:UpdateFrames() end)
     hooksecurefunc("EncounterJournal_ListInstances", function() AddOn:UpdateFrames() end)
