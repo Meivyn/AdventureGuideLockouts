@@ -1,4 +1,3 @@
--- Lua functions
 local _G = _G
 local pairs = pairs
 local print = print
@@ -6,7 +5,6 @@ local select = select
 local tinsert = tinsert
 local tonumber = tonumber
 
--- WoW API / Variables
 local C_ContributionCollector_GetState = C_ContributionCollector.GetState
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 local C_TaskQuest_GetQuestTimeLeftMinutes = C_TaskQuest.GetQuestTimeLeftMinutes
@@ -60,12 +58,6 @@ function AddOn:RequestWarfrontInfo()
 
   self.isStromgardeAvailable = stromgardeState == Enum_ContributionState.Building or stromgardeState == Enum_ContributionState.Active
   self.isDarkshoreAvailable = darkshoreState == Enum_ContributionState.Building or darkshoreState == Enum_ContributionState.Active
-
-  if self.isStromgardeAvailable and self.isDarkshoreAvailable then
-    self.worldBosses[5].numEncounters = 5
-  elseif self.isStromgardeAvailable or self.isDarkshoreAvailable then
-    self.worldBosses[5].numEncounters = 4
-  end
 end
 
 ---@param instanceIndex number
@@ -76,7 +68,7 @@ function AddOn:GetSavedWorldBossInfo(instanceIndex)
   local difficulty = 2
   local locked = false
   local difficultyName = RAID_INFO_WORLD_BOSS
-  local numEncounters = self.worldBosses[instanceIndex].numEncounters
+  local numEncounters = 0
   local numCompleted = 0
 
   for encounterIndex = 1, #self.worldBosses[instanceIndex].encounters do
@@ -180,7 +172,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
 
   while self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex) do
     local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
-    local isAvailable
+    local isAvailable = true
     if instanceIndex == 5 and encounterIndex == 4 then
       isAvailable = self.isStromgardeAvailable
       isKilled = isKilled and isAvailable
@@ -195,6 +187,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
       isKilled = isKilled,
       isAvailable = isAvailable
     })
+    numEncounters = (isAvailable or isKilled) and numEncounters + 1 or numEncounters
     encounterIndex = encounterIndex + 1
   end
 
