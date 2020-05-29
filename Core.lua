@@ -33,11 +33,24 @@ local RED_FONT_COLOR = RED_FONT_COLOR
 
 local ADDON_NAME, AddOn = ...
 
-local function error(...)
+local function debug(...)
+  _G[ADDON_NAME] = _G[ADDON_NAME] or AddOn
+  if not ... then return end
+  if type(...) == "table" then
+    print("|cff33ff99" .. ADDON_NAME .. " DEBUG:|r")
+    LoadAddOn("Blizzard_DebugTools")
+    DevTools_Dump(...)
+  else
+    print("|cff33ff99" .. ADDON_NAME .. " DEBUG:|r", ...)
+  end
+end
+
+local function error(err, debugTable)
   AddOn.errors = AddOn.errors or {}
-  if not AddOn.errors[...] then
-    print("|cffff0000" .. ADDON_NAME .. ":|r", ...)
-    AddOn.errors[...] = true
+  if not AddOn.errors[err] then
+    print("|cffff0000" .. ADDON_NAME .. " ERROR:|r", err)
+    debug(debugTable)
+    AddOn.errors[err] = true
   end
 end
 
@@ -108,9 +121,15 @@ end
 function AddOn:GetInstanceLockout(instanceIndex)
   local instanceName, _, _, instanceDifficulty, locked, extended, _, _, _, difficultyName, numEncounters, numCompleted = GetSavedInstanceInfo(instanceIndex)
   if not locked and not extended then return end
-  local instanceID = self.instances[tonumber(GetSavedInstanceChatLink(instanceIndex):match(":(%d+):"))]
+  local instanceLink = GetSavedInstanceChatLink(instanceIndex)
+  local instanceMatch = instanceLink:match("%b::(%d+)")
+  local instanceID = self.instances[tonumber(instanceMatch)]
   if not instanceID then
-    error(instanceName .. " instanceID is nil. Please report this at https://github.com/Meivyn/AdventureGuideLockouts/issues")
+    local debugTable = {
+      instanceLink = instanceLink,
+      instanceMatch = instanceMatch
+    }
+    error("instanceID is nil. Please report following values at https://github.com/Meivyn/AdventureGuideLockouts/issues", debugTable)
     return
   end
 
