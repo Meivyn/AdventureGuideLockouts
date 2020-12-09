@@ -187,7 +187,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
     elseif instanceIndex == 5 and encounterIndex == 8 then
       isAvailable = self.isDarkshoreAvailable
       isKilled = isKilled and isAvailable
-    elseif instanceIndex == 5 then
+    elseif instanceIndex >= 5 then
       isAvailable = C_TaskQuest_GetQuestTimeLeftMinutes(self.worldBosses[instanceIndex].encounters[encounterIndex].questID) ~= nil
     end
     tinsert(encounters, {

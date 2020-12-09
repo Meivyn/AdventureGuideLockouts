@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.6
+
+- Fixed Shadowlands world bosses availability
+- Bumped toc for 9.0.2
+
 ## v1.3.5
 
 - Updated for Shadowlands
