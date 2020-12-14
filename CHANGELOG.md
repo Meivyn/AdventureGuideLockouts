@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.7
+- Temp fix for Nurgash incorrectly appearing as available, its world quest was changed since Beta
+
 ## v1.3.6
 
 - Fixed Shadowlands world bosses availability
