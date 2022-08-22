@@ -5,6 +5,4 @@
 ## Author: alex_chrome, Meivyn
 ## Version: 1.4.2
 
-Instances.lua
-WorldBosses.lua
-Core.lua
+AdventureGuideLockouts.lua
