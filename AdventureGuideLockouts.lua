@@ -203,9 +203,9 @@ function AddOn:GetInstanceLockout(instanceIndex)
     return
   end
 
-  if instanceID == 777 then
+  if instanceID == 1544 then
     numEncounters = 3 -- Fixes wrong encounters count for Assault on Violet Hold
-  elseif instanceID == 1023 then
+  elseif instanceID == 1822 then
     numEncounters = 4 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
   end
 
@@ -224,7 +224,7 @@ function AddOn:GetInstanceLockout(instanceIndex)
   local encounterIndex = 1
 
   while GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex) do
-    if instanceID == 1023 then
+    if instanceID == 1822 then
       if self.faction == "Alliance" and encounterIndex == 1 or self.faction == "Horde" and encounterIndex == 2 then
         encounterIndex = encounterIndex + 1 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
       end
