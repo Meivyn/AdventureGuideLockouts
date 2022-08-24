@@ -353,43 +353,12 @@ end
 
 ---@param instanceButton Button
 function AddOn:UpdateStatusFramePosition(instanceButton)
-  local savedFrames = self.statusFrames[instanceButton:GetName()]
-  local lfrVisible = savedFrames and savedFrames[1] and savedFrames[1]:IsVisible()
-  local normalVisible = savedFrames and savedFrames[2] and savedFrames[2]:IsVisible()
-  local heroicVisible = savedFrames and savedFrames[3] and savedFrames[3]:IsVisible()
-  local mythicVisible = savedFrames and savedFrames[4] and savedFrames[4]:IsVisible()
-
-  if mythicVisible then
-    savedFrames[4]:SetPoint("BOTTOMRIGHT", 4, -12)
-  end
-
-  if heroicVisible then
-    if mythicVisible then
-      savedFrames[3]:SetPoint("BOTTOMRIGHT", -28, -12)
-    else
-      savedFrames[3]:SetPoint("BOTTOMRIGHT", 4, -12)
-    end
-  end
-
-  if normalVisible then
-    if heroicVisible and mythicVisible then
-      savedFrames[2]:SetPoint("BOTTOMRIGHT", -60, -23)
-    elseif heroicVisible or mythicVisible then
-      savedFrames[2]:SetPoint("BOTTOMRIGHT", -28, -23)
-    else
-      savedFrames[2]:SetPoint("BOTTOMRIGHT", 4, -23)
-    end
-  end
-
-  if lfrVisible then
-    if normalVisible and heroicVisible and mythicVisible then
-      savedFrames[1]:SetPoint("BOTTOMRIGHT", -92, -23)
-    elseif heroicVisible and mythicVisible or heroicVisible and normalVisible or mythicVisible and normalVisible then
-      savedFrames[1]:SetPoint("BOTTOMRIGHT", -60, -23)
-    elseif normalVisible or heroicVisible or mythicVisible then
-      savedFrames[1]:SetPoint("BOTTOMRIGHT", -28, -23)
-    else
-      savedFrames[1]:SetPoint("BOTTOMRIGHT", 4, -23)
+  local numVisible = 0
+  for i = 4, 1, -1 do
+    local statusFrame = self.statusFrames[instanceButton:GetName()][i]
+    if statusFrame and statusFrame:IsVisible() then
+      statusFrame:SetPoint("BOTTOMRIGHT", 4 + numVisible * -32, i > 2 and -12 or -23)
+      numVisible = numVisible + 1
     end
   end
 end
