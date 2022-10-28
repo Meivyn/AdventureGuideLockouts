@@ -188,9 +188,8 @@ function AddOn:GetInstanceLockout(instanceIndex)
   end
 
   local encounters = {}
-  local encounterIndex = 1
 
-  while GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex) do
+  for encounterIndex = 1, numEncounters do
     if instanceID == 1822 then
       if self.faction == "Alliance" and encounterIndex == 1 or self.faction == "Horde" and encounterIndex == 2 then
         encounterIndex = encounterIndex + 1 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
@@ -201,7 +200,6 @@ function AddOn:GetInstanceLockout(instanceIndex)
       bossName = bossName,
       isKilled = isKilled
     })
-    encounterIndex = encounterIndex + 1
   end
 
   return {
@@ -224,9 +222,8 @@ function AddOn:GetWorldBossLockout(instanceIndex)
   if not locked then return end
 
   local encounters = {}
-  local encounterIndex = 1
 
-  while self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex) do
+  for encounterIndex = 1, numEncounters do
     local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
     local isAvailable = true
     if instanceIndex == 5 and encounterIndex == 4 then
@@ -244,7 +241,6 @@ function AddOn:GetWorldBossLockout(instanceIndex)
       isAvailable = isAvailable
     }
     numEncounters = (isAvailable or isKilled) and numEncounters + 1 or numEncounters
-    encounterIndex = encounterIndex + 1
   end
 
   return {
