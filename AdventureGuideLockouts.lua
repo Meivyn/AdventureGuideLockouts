@@ -110,6 +110,15 @@ AddOn.worldBosses = {
       { encounterID = 2456, questID = 64531 }, -- Mor'geth, Tormentor of the Damned
       { encounterID = 2468, questID = 65143 }  -- Antros
     }
+  },
+  {
+    instanceID = 1205,                         -- Dragon Isles
+    encounters = {
+      { encounterID = 2515, questID = 69929 }, -- Strunraan, The Sky's Misery
+      { encounterID = 2506, questID = 69930 }, -- Basrikron, The Shale Wing
+      { encounterID = 2517, questID = 69927 }, -- Bazual, The Dreaded Flame
+      { encounterID = 2518, questID = 69928 }, -- Liskanoth, The Futurebane
+    }
   }
 }
 
@@ -278,9 +287,10 @@ function AddOn:UpdateSavedInstances()
 end
 
 ---@param instanceButton Button
+---@param orderIndex number
 ---@param difficulty number
 ---@return Frame @ statusFrame
-function AddOn:CreateStatusFrame(instanceButton, difficulty)
+function AddOn:CreateStatusFrame(instanceButton, orderIndex, difficulty)
   local statusFrame = CreateFrame("Frame", nil, instanceButton)
   statusFrame:SetSize(38, 46)
   statusFrame:SetScript("OnEnter", function(frame)
@@ -341,17 +351,17 @@ function AddOn:CreateStatusFrame(instanceButton, difficulty)
   statusFrame.completeFrame = completeFrame
   statusFrame.progressFrame = progressFrame
 
-  self.statusFrames[instanceButton:GetName()] = self.statusFrames[instanceButton:GetName()] or {}
-  self.statusFrames[instanceButton:GetName()][difficulty] = statusFrame
+  self.statusFrames[orderIndex] = self.statusFrames[orderIndex] or {}
+  self.statusFrames[orderIndex][difficulty] = statusFrame
 
   return statusFrame
 end
 
----@param instanceButton Button
-function AddOn:UpdateStatusFramePosition(instanceButton)
+---@param orderIndex number
+function AddOn:UpdateStatusFramePosition(orderIndex)
   local numVisible = 0
   for i = 4, 1, -1 do
-    local statusFrame = self.statusFrames[instanceButton:GetName()][i]
+    local statusFrame = self.statusFrames[orderIndex][i]
     if statusFrame and statusFrame:IsVisible() then
       statusFrame:SetPoint("BOTTOMRIGHT", 4 + numVisible * -32, i > 2 and -12 or -23)
       numVisible = numVisible + 1
@@ -363,18 +373,20 @@ end
 function AddOn:UpdateInstanceStatusFrame(instanceButton)
   self.statusFrames = self.statusFrames or {}
 
-  if self.statusFrames[instanceButton:GetName()] then
-    for _, frame in pairs(self.statusFrames[instanceButton:GetName()]) do
+  local orderIndex = instanceButton:GetOrderIndex()
+  if self.statusFrames[orderIndex] then
+    for _, frame in pairs(self.statusFrames[orderIndex]) do
       frame:Hide()
     end
   end
 
-  local instances = self.instanceLockouts[instanceButton.mapID] or self.instanceLockouts[instanceButton.instanceID]
+  local elementData = instanceButton:GetElementData()
+  local instances = self.instanceLockouts[elementData.mapID] or self.instanceLockouts[elementData.instanceID]
   if not instances then return end
 
   for i = 1, #instances do
     local instance = instances[i]
-    local frame = (self.statusFrames[instanceButton:GetName()] and self.statusFrames[instanceButton:GetName()][instance.difficulty]) or self:CreateStatusFrame(instanceButton, instance.difficulty)
+    local frame = (self.statusFrames[orderIndex] and self.statusFrames[orderIndex][instance.difficulty]) or self:CreateStatusFrame(instanceButton, orderIndex, instance.difficulty)
     if instance.complete then
       frame.completeFrame:Show()
       frame.progressFrame:Hide()
@@ -390,19 +402,58 @@ function AddOn:UpdateInstanceStatusFrame(instanceButton)
     frame.instanceInfo = instance
   end
 
-  self:UpdateStatusFramePosition(instanceButton)
+  self:UpdateStatusFramePosition(orderIndex)
 end
 
-local function UpdateFrames()
-  local b1 = _G.EncounterJournalInstanceSelectScrollFrameScrollChildInstanceButton1
-  if b1 then
-    AddOn:UpdateInstanceStatusFrame(b1)
+-- This fixes an issue with the original function
+-- not setting the mapID correctly in the data provider.
+local function UpdateDataProvider()
+  local dataIndex = 1
+  local showRaid = EncounterJournal_IsRaidTabSelected(EncounterJournal)
+  local instanceID, name, description, _, buttonImage, _, _, _, link, _, mapID = EJ_GetInstanceByIndex(dataIndex, showRaid)
+
+  local dataProvider = CreateDataProvider()
+  while instanceID ~= nil do
+    dataProvider:Insert({
+      instanceID = instanceID,
+      name = name,
+      description = description,
+      buttonImage = buttonImage,
+      link = link,
+      mapID = mapID,
+    })
+
+    dataIndex = dataIndex + 1
+    instanceID, name, description, _, buttonImage, _, _, _, link, _, mapID = EJ_GetInstanceByIndex(dataIndex, showRaid)
   end
-  for i = 1, 100 do
-    local b = _G["EncounterJournalInstanceSelectScrollFrameinstance" .. i]
-    if b then
-      AddOn:UpdateInstanceStatusFrame(b)
-    end
+
+  EncounterJournal.instanceSelect.ScrollBox:SetDataProvider(dataProvider)
+end
+
+-- This fixes an issue introduced by assigning the mapID.
+-- The Fated icon is not hidden when switching tabs or extensions.
+local function SetFated(instanceButton)
+  local elementData = instanceButton:GetElementData()
+  local modifiedInstanceInfo = C_ModifiedInstance.GetModifiedInstanceInfoFromMapID(elementData.mapID)
+  if modifiedInstanceInfo then
+    instanceButton.ModifiedInstanceIcon.info = modifiedInstanceInfo
+    instanceButton.ModifiedInstanceIcon.name = nil
+    local atlas = instanceButton.ModifiedInstanceIcon:GetIconTextureAtlas()
+    instanceButton.ModifiedInstanceIcon.Icon:SetAtlas(atlas, true)
+    instanceButton.ModifiedInstanceIcon:SetSize(instanceButton.ModifiedInstanceIcon.Icon:GetSize())
+    instanceButton.ModifiedInstanceIcon:Show()
+  else
+    instanceButton.ModifiedInstanceIcon:Hide()
+  end
+end
+
+local function UpdateFrames(scrollBox, locked)
+  if locked then return end
+  local instanceButtons = scrollBox:GetFrames()
+  for i = 1, #instanceButtons do
+    local instanceButton = instanceButtons[i]
+    AddOn:UpdateInstanceStatusFrame(instanceButton)
+    SetFated(instanceButton)
   end
 end
 
@@ -419,13 +470,15 @@ frame:SetScript("OnEvent", function(_, event, arg1)
     AddOn.worldBosses[5].encounters[8].encounterID = AddOn.faction == "Horde" and 2329 or 2345
     AddOn.worldBosses[5].encounters[8].questID =  AddOn.faction == "Horde" and 54896 or 54895
   elseif event == "ADDON_LOADED" and arg1 == "Blizzard_EncounterJournal" then
-    _G.EncounterJournal:HookScript("OnShow", UpdateFrames)
-    hooksecurefunc("EncounterJournal_ListInstances", UpdateFrames)
+    hooksecurefunc("EncounterJournal_ListInstances", UpdateDataProvider)
+    hooksecurefunc(EncounterJournal.instanceSelect.ScrollBox, "SetUpdateLocked", UpdateFrames)
   elseif event == "BOSS_KILL" then
     RequestRaidInfo()
   elseif event == "UPDATE_INSTANCE_INFO" then
     AddOn:RequestWarfrontInfo()
     AddOn:UpdateSavedInstances()
-    UpdateFrames()
+    if EncounterJournal and EncounterJournal:IsVisible() then
+      UpdateFrames(EncounterJournal.instanceSelect.ScrollBox)
+    end
   end
 end)
