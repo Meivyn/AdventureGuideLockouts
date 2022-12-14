@@ -197,8 +197,9 @@ function AddOn:GetWorldBossLockout(instanceIndex)
     if not locked then return end
 
     local encounters = {}
-    for encounterIndex = 1, numEncounters do
-        local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
+    local encounterIndex = 1
+    local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
+    while bossName do
         local isAvailable = true
         if instanceIndex == 5 and encounterIndex == 4 then
             isAvailable = self.isStromgardeAvailable
@@ -215,6 +216,8 @@ function AddOn:GetWorldBossLockout(instanceIndex)
             isAvailable = isAvailable
         }
         numEncounters = (isAvailable or isKilled) and numEncounters + 1 or numEncounters
+        encounterIndex = encounterIndex + 1
+        bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
     end
 
     return {
