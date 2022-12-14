@@ -231,7 +231,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
 end
 
 function AddOn:UpdateSavedInstances()
-    self.instanceLockouts = {}
+    self.instanceLockouts = self.instanceLockouts and wipe(self.instanceLockouts) or {}
     local savedInstances = GetNumSavedInstances()
     for instanceIndex = 1, savedInstances + #self.worldBosses do
         local lockout
