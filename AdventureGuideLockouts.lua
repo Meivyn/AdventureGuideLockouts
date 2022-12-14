@@ -92,8 +92,8 @@ AddOn.worldBosses = {
 }
 
 function AddOn:RequestWarfrontInfo()
-    local stromgardeState = C_ContributionCollector.GetState(self.faction == "Horde" and 116 or 11)
-    local darkshoreState = C_ContributionCollector.GetState(self.faction == "Horde" and 117 or 118)
+    local stromgardeState = C_ContributionCollector.GetState(self.playerFaction == "Horde" and 116 or 11)
+    local darkshoreState = C_ContributionCollector.GetState(self.playerFaction == "Horde" and 117 or 118)
     self.isStromgardeAvailable = stromgardeState == Enum.ContributionState.Building or stromgardeState == Enum.ContributionState.Active
     self.isDarkshoreAvailable = darkshoreState == Enum.ContributionState.Building or darkshoreState == Enum.ContributionState.Active
 end
@@ -166,7 +166,7 @@ function AddOn:GetInstanceLockout(instanceIndex)
     local encounters = {}
     for encounterIndex = 1, numEncounters do
         if instanceID == 1822 then
-            if self.faction == "Alliance" and encounterIndex == 1 or self.faction == "Horde" and encounterIndex == 2 then
+            if self.playerFaction == "Alliance" and encounterIndex == 1 or self.playerFaction == "Horde" and encounterIndex == 2 then
                 encounterIndex = encounterIndex + 1 -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
             end
         end
@@ -321,10 +321,10 @@ end
 ---@param orderIndex number
 function AddOn:UpdateStatusFramePosition(orderIndex)
     local numVisible = 0
-    for i = 4, 1, -1 do
-        local statusFrame = self.statusFrames[orderIndex][i]
+    for difficulty = 4, 1, -1 do
+        local statusFrame = self.statusFrames[orderIndex][difficulty]
         if statusFrame and statusFrame:IsVisible() then
-            statusFrame:SetPoint("BOTTOMRIGHT", 4 + numVisible * -32, i > 2 and -12 or -23)
+            statusFrame:SetPoint("BOTTOMRIGHT", 4 + numVisible * -32, difficulty > 2 and -12 or -23)
             numVisible = numVisible + 1
         end
     end
@@ -425,11 +425,11 @@ frame:RegisterEvent("BOSS_KILL")
 frame:RegisterEvent("UPDATE_INSTANCE_INFO")
 frame:SetScript("OnEvent", function(_, event, arg1)
     if event == "PLAYER_ENTERING_WORLD" then
-        AddOn.faction = UnitFactionGroup("player")
-        AddOn.worldBosses[5].encounters[4].encounterID = AddOn.faction == "Horde" and 2212 or 2213
-        AddOn.worldBosses[5].encounters[4].questID =  AddOn.faction == "Horde" and 52848 or 52847
-        AddOn.worldBosses[5].encounters[8].encounterID = AddOn.faction == "Horde" and 2329 or 2345
-        AddOn.worldBosses[5].encounters[8].questID =  AddOn.faction == "Horde" and 54896 or 54895
+        AddOn.playerFaction = UnitFactionGroup("player")
+        AddOn.worldBosses[5].encounters[4].encounterID = AddOn.playerFaction == "Horde" and 2212 or 2213
+        AddOn.worldBosses[5].encounters[4].questID =  AddOn.playerFaction == "Horde" and 52848 or 52847
+        AddOn.worldBosses[5].encounters[8].encounterID = AddOn.playerFaction == "Horde" and 2329 or 2345
+        AddOn.worldBosses[5].encounters[8].questID =  AddOn.playerFaction == "Horde" and 54896 or 54895
     elseif event == "ADDON_LOADED" and arg1 == "Blizzard_EncounterJournal" then
         hooksecurefunc("EncounterJournal_ListInstances", UpdateDataProvider)
         hooksecurefunc(EncounterJournal.instanceSelect.ScrollBox, "SetUpdateLocked", UpdateFrames)
