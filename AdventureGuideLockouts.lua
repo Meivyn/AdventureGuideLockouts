@@ -338,7 +338,7 @@ end
 function AddOn:UpdateInstanceStatusFrame(button, elementData)
     self.statusFrames = self.statusFrames or {}
     local orderIndex = button:GetOrderIndex()
-    local instances = self.instanceLockouts[elementData.mapID] or self.instanceLockouts[elementData.instanceID]
+    local instances = self.instanceLockouts and (self.instanceLockouts[elementData.mapID] or self.instanceLockouts[elementData.instanceID])
 
     if self.statusFrames[orderIndex] then
         for _, frame in pairs(self.statusFrames[orderIndex]) do
