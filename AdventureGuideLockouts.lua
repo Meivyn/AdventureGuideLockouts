@@ -334,10 +334,10 @@ function AddOn:UpdateStatusFramePosition(orderIndex)
 end
 
 ---@param button Button
-function AddOn:UpdateInstanceStatusFrame(button)
+---@param elementData table
+function AddOn:UpdateInstanceStatusFrame(button, elementData)
     self.statusFrames = self.statusFrames or {}
     local orderIndex = button:GetOrderIndex()
-    local elementData = button:GetElementData()
     local instances = self.instanceLockouts[elementData.mapID] or self.instanceLockouts[elementData.instanceID]
 
     if self.statusFrames[orderIndex] then
@@ -396,8 +396,7 @@ end
 
 -- This fixes an issue introduced by assigning the mapID.
 -- The Fated icon is not hidden when switching tabs or expansions.
-local function SetFated(button)
-    local elementData = button:GetElementData()
+local function SetFated(button, elementData)
     local modifiedInstanceInfo = C_ModifiedInstance.GetModifiedInstanceInfoFromMapID(elementData.mapID)
     if modifiedInstanceInfo then
         button.ModifiedInstanceIcon.info = modifiedInstanceInfo
@@ -416,8 +415,9 @@ local function UpdateFrames(scrollBox, locked)
     local buttons = scrollBox:GetFrames()
     for i = 1, #buttons do
         local button = buttons[i]
-        AddOn:UpdateInstanceStatusFrame(button)
-        SetFated(button)
+        local elementData = button:GetElementData()
+        AddOn:UpdateInstanceStatusFrame(button, elementData)
+        SetFated(button, elementData)
     end
 end
 
