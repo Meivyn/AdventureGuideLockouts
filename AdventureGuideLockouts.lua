@@ -144,9 +144,8 @@ end
 ---@param instanceIndex number
 ---@return table @ instanceLockout
 function AddOn:GetInstanceLockout(instanceIndex)
-    local instanceName, _, _, instanceDifficulty, locked, extended, _, _, _, difficultyName, numEncounters, numCompleted = GetSavedInstanceInfo(instanceIndex)
+    local instanceName, _, _, instanceDifficulty, locked, extended, _, _, _, difficultyName, numEncounters, numCompleted, _, instanceID = GetSavedInstanceInfo(instanceIndex)
     if not locked and not extended then return end
-    local instanceID = tonumber(GetSavedInstanceChatLink(instanceIndex):match("%b::(%d+)"))
     if instanceID == 1544 then
         numEncounters = 3 -- Fixes wrong encounters count for Assault on Violet Hold
     elseif instanceID == 1822 then
