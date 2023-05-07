@@ -86,7 +86,8 @@ AddOn.worldBosses = {
             { encounterID = 2515, questID = 69929 }, -- Strunraan, The Sky's Misery
             { encounterID = 2506, questID = 69930 }, -- Basrikron, The Shale Wing
             { encounterID = 2517, questID = 69927 }, -- Bazual, The Dreaded Flame
-            { encounterID = 2518, questID = 69928 }  -- Liskanoth, The Futurebane
+            { encounterID = 2518, questID = 69928 }, -- Liskanoth, The Futurebane
+            { encounterID = 2531, questID = 74892 }  -- The Zaqali Elders
         }
     }
 }
