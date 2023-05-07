@@ -373,24 +373,12 @@ end
 local function UpdateDataProvider()
     local dataIndex = 1
     local showRaid = EncounterJournal_IsRaidTabSelected(EncounterJournal)
-    local instanceID, name, description, _, buttonImage, _, _, _, link, _, mapID = EJ_GetInstanceByIndex(dataIndex, showRaid)
-
-    local dataProvider = CreateDataProvider()
-    while instanceID ~= nil do
-        dataProvider:Insert({
-            instanceID = instanceID,
-            name = name,
-            description = description,
-            buttonImage = buttonImage,
-            link = link,
-            mapID = mapID,
-        })
-
+    local mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
+    EncounterJournal.instanceSelect.ScrollBox:ForEachElementData(function(elementData)
+        elementData.mapID = mapID
         dataIndex = dataIndex + 1
-        instanceID, name, description, _, buttonImage, _, _, _, link, _, mapID = EJ_GetInstanceByIndex(dataIndex, showRaid)
-    end
-
-    EncounterJournal.instanceSelect.ScrollBox:SetDataProvider(dataProvider)
+        mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
+    end)
 end
 
 -- This fixes an issue introduced by assigning the mapID.
