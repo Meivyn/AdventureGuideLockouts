@@ -107,10 +107,10 @@ function AddOn:GetSavedWorldBossInfo(instanceIndex)
     local difficulty = 2
     local locked = false
     local difficultyName = RAID_INFO_WORLD_BOSS
-    local numEncounters = 0
+    local numEncounters = #self.worldBosses[instanceIndex].encounters
     local numCompleted = 0
 
-    for encounterIndex = 1, #self.worldBosses[instanceIndex].encounters do
+    for encounterIndex = 1, numEncounters do
         local encounter = self.worldBosses[instanceIndex].encounters[encounterIndex]
         local isDefeated = C_QuestLog.IsQuestFlaggedCompleted(encounter.questID)
         if instanceIndex == 5 and encounterIndex == 4 then
@@ -131,13 +131,13 @@ end
 ---@param encounterIndex number
 ---@return string, boolean @ bossName, isKilled
 function AddOn:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
-    if encounterIndex > #self.worldBosses[instanceIndex].encounters then return end
+    local encounter = self.worldBosses[instanceIndex].encounters[encounterIndex]
     local bossName
-    local isKilled = C_QuestLog.IsQuestFlaggedCompleted(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
-    if not self.worldBosses[instanceIndex].encounters[encounterIndex].encounterID then
+    local isKilled = C_QuestLog.IsQuestFlaggedCompleted(encounter.questID)
+    if not encounter.encounterID then
         bossName = select(2, GetAchievementInfo(7333)) -- Localize "The Four Celestials"
     else
-        bossName = EJ_GetEncounterInfo(self.worldBosses[instanceIndex].encounters[encounterIndex].encounterID)
+        bossName = EJ_GetEncounterInfo(encounter.encounterID)
     end
     return bossName, isKilled
 end
@@ -197,10 +197,10 @@ function AddOn:GetWorldBossLockout(instanceIndex)
     if not locked then return end
 
     local encounters = {}
-    local encounterIndex = 1
-    local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
-    while bossName do
+    local numAvailableEncounters = 0
+    for encounterIndex = 1, numEncounters do
         local isAvailable = true
+        local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
         if instanceIndex == 5 and encounterIndex == 4 then
             isAvailable = self.isStromgardeAvailable
             isKilled = isKilled and isAvailable
@@ -215,9 +215,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
             isKilled = isKilled,
             isAvailable = isAvailable
         }
-        numEncounters = (isAvailable or isKilled) and numEncounters + 1 or numEncounters
-        encounterIndex = encounterIndex + 1
-        bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
+        numAvailableEncounters = (isAvailable or isKilled) and numAvailableEncounters + 1 or numAvailableEncounters
     end
 
     return {
@@ -226,10 +224,10 @@ function AddOn:GetWorldBossLockout(instanceIndex)
         instanceID = instanceID,
         difficulty = difficulty,
         difficultyName = difficultyName,
-        numEncounters = numEncounters,
+        numEncounters = numAvailableEncounters,
         numCompleted = numCompleted,
-        progress = numCompleted .. "/" .. numEncounters,
-        complete = numCompleted == numEncounters
+        progress = numCompleted .. "/" .. numAvailableEncounters,
+        complete = numCompleted == numAvailableEncounters
     }
 end
 
