@@ -1,4 +1,4 @@
-local _, AddOn = ...
+local ADDON_NAME, AddOn = ...
 
 AddOn.worldBosses = {
     {
@@ -331,36 +331,6 @@ function AddOn:UpdateStatusFramePosition(orderIndex)
     end
 end
 
---[[
-TODO: Find a solution for this, if that's even possible.
-Showing any status frame is firing OnSizeChanged callback and taints the Adventure Guide.
-This removes the taint:
-    local scrollBox = EncounterJournal.instanceSelect.ScrollBox
-    scrollBox:GetScrollTarget():UnregisterCallback("OnSizeChanged", scrollBox)
-This is the stack trace using taintLog 11 on the 10.1.5 PTR:
-    Global variable extent tainted by AdventureGuideLockouts - Interface/SharedXML/Scroll/ScrollBoxView.lua:76 SetExtent()
-        Interface/SharedXML/Scroll/ScrollBoxListView.lua:647
-        Interface/SharedXML/Scroll/ScrollBox.lua:176 FullUpdateInternal()
-        Interface/SharedXML/Scroll/ScrollBox.lua:674 Frame:FullUpdateInternal()
-        Interface/SharedXML/Scroll/ScrollBox.lua:144 Frame:FullUpdate()
-        Interface/SharedXML/Scroll/ScrollBox.lua:125
-        securecallfunction()
-        Interface/SharedXML/CallbackRegistry.lua:178
-        secureexecuterange()
-        Interface/SharedXML/CallbackRegistry.lua:181 Frame:TriggerEvent()
-        Interface/SharedXML/Frame/EventFrame.lua:47
-        Frame:Show()
-        Interface/AddOns/AdventureGuideLockouts/AdventureGuideLockouts.lua:372 UpdateInstanceStatusFrame()
-        Interface/AddOns/AdventureGuideLockouts/AdventureGuideLockouts.lua:407 func()
-        Interface/SharedXML/Scroll/ScrollBoxListView.lua:142 ForEachFrame()
-        Interface/SharedXML/Scroll/ScrollBox.lua:531 Frame:ForEachFrame()
-        Interface/AddOns/AdventureGuideLockouts/AdventureGuideLockouts.lua:405
-        EncounterJournal_ListInstances()
-        Interface/AddOns/Blizzard_EncounterJournal/Blizzard_EncounterJournal.lua:2508 EJ_ContentTab_Select()
-        Interface/AddOns/Blizzard_EncounterJournal/Blizzard_EncounterJournal.lua:2471 EJ_ContentTab_OnClick()
-        EncounterJournalDungeonTab:lizzard_EncounterJournal.xml:1385_OnClick()
---]]
-
 ---@param button Button
 ---@param elementData table
 function AddOn:UpdateInstanceStatusFrame(button, elementData)
@@ -374,7 +344,9 @@ function AddOn:UpdateInstanceStatusFrame(button, elementData)
         end
     end
 
-    if not instances then return end
+    if not instances then
+        return
+    end
 
     for i = 1, #instances do
         local instance = instances[i]
@@ -382,49 +354,47 @@ function AddOn:UpdateInstanceStatusFrame(button, elementData)
         if instance.complete then
             frame.completeFrame:Show()
             frame.progressFrame:Hide()
-            frame:Show()
         elseif instance.progress then
             frame.completeFrame:Hide()
             frame.progressFrame:SetText(instance.progress)
             frame.progressFrame:Show()
-            frame:Show()
-        else
-            frame:Hide()
         end
         frame.instanceInfo = instance
+
+        -- This prevents ScrollTarget's OnSizeChanged callback from being fired with taint.
+        RunNextFrame(function() frame:Show() end)
     end
 
     self:UpdateStatusFramePosition(orderIndex)
 end
 
--- This fixes an issue with the original function
--- not setting the mapID correctly in the data provider.
-local function UpdateDataProviderAndFrames()
+local function UpdateFrames()
     local dataIndex = 1
     local showRaid = EncounterJournal_IsRaidTabSelected(EncounterJournal)
-    local mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
     EncounterJournal.instanceSelect.ScrollBox:ForEachFrame(function(frame, elementData)
-        elementData.mapID = mapID
+        -- This fixes an issue with the original function not setting the mapID correctly in the data provider.
+        elementData.mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
         AddOn:UpdateInstanceStatusFrame(frame, elementData)
         dataIndex = dataIndex + 1
-        mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
     end)
 end
 
 local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("BOSS_KILL")
 frame:RegisterEvent("UPDATE_INSTANCE_INFO")
 frame:SetScript("OnEvent", function(_, event, arg1)
-    if event == "PLAYER_ENTERING_WORLD" then
-        AddOn.playerFaction = UnitFactionGroup("player")
-        AddOn.worldBosses[5].encounters[4].encounterID = AddOn.playerFaction == "Horde" and 2212 or 2213
-        AddOn.worldBosses[5].encounters[4].questID =  AddOn.playerFaction == "Horde" and 52848 or 52847
-        AddOn.worldBosses[5].encounters[8].encounterID = AddOn.playerFaction == "Horde" and 2329 or 2345
-        AddOn.worldBosses[5].encounters[8].questID =  AddOn.playerFaction == "Horde" and 54896 or 54895
-    elseif event == "ADDON_LOADED" and arg1 == "Blizzard_EncounterJournal" then
-        hooksecurefunc("EncounterJournal_ListInstances", UpdateDataProviderAndFrames)
+    if event == "ADDON_LOADED" then
+        if arg1 == ADDON_NAME then
+            local playerFaction = UnitFactionGroup("player")
+            AddOn.worldBosses[5].encounters[4].encounterID = playerFaction == "Horde" and 2212 or 2213
+            AddOn.worldBosses[5].encounters[4].questID =  playerFaction == "Horde" and 52848 or 52847
+            AddOn.worldBosses[5].encounters[8].encounterID = playerFaction == "Horde" and 2329 or 2345
+            AddOn.worldBosses[5].encounters[8].questID =  playerFaction == "Horde" and 54896 or 54895
+            AddOn.playerFaction = playerFaction
+        elseif arg1 == "Blizzard_EncounterJournal" then
+            hooksecurefunc("EncounterJournal_ListInstances", UpdateFrames)
+        end
     elseif event == "BOSS_KILL" then
         RequestRaidInfo()
     elseif event == "UPDATE_INSTANCE_INFO" then
