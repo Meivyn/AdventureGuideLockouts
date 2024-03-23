@@ -371,13 +371,8 @@ function AddOn:UpdateInstanceStatusFrame(button, elementData)
 end
 
 local function UpdateFrames()
-    local dataIndex = 1
-    local showRaid = EncounterJournal_IsRaidTabSelected(EncounterJournal)
     EncounterJournal.instanceSelect.ScrollBox:ForEachFrame(function(frame, elementData)
-        -- This fixes an issue with the original function not setting the mapID correctly in the data provider.
-        elementData.mapID = select(11, EJ_GetInstanceByIndex(dataIndex, showRaid))
         AddOn:UpdateInstanceStatusFrame(frame, elementData)
-        dataIndex = dataIndex + 1
     end)
 end
 
