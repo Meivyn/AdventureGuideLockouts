@@ -349,24 +349,25 @@ function AddOn:UpdateInstanceStatusFrame(button, elementData)
         return
     end
 
-    for i = 1, #instances do
-        local instance = instances[i]
-        local frame = self.statusFrames[orderIndex] and self.statusFrames[orderIndex][instance.difficulty] or self:CreateStatusFrame(button, orderIndex, instance.difficulty)
-        if instance.complete then
-            frame.completeFrame:Show()
-            frame.progressFrame:Hide()
-        elseif instance.progress then
-            frame.completeFrame:Hide()
-            frame.progressFrame:SetText(instance.progress)
-            frame.progressFrame:Show()
+    -- This prevents ScrollTarget's OnSizeChanged callback from being fired with taint.
+    RunNextFrame(function()
+        for i = 1, #instances do
+            local instance = instances[i]
+            local frame = self.statusFrames[orderIndex] and self.statusFrames[orderIndex][instance.difficulty] or self:CreateStatusFrame(button, orderIndex, instance.difficulty)
+            if instance.complete then
+                frame.completeFrame:Show()
+                frame.progressFrame:Hide()
+            elseif instance.progress then
+                frame.completeFrame:Hide()
+                frame.progressFrame:SetText(instance.progress)
+                frame.progressFrame:Show()
+            end
+            frame.instanceInfo = instance
+            frame:Show()
         end
-        frame.instanceInfo = instance
 
-        -- This prevents ScrollTarget's OnSizeChanged callback from being fired with taint.
-        RunNextFrame(function() frame:Show() end)
-    end
-
-    self:UpdateStatusFramePosition(orderIndex)
+        self:UpdateStatusFramePosition(orderIndex)
+    end)
 end
 
 local function UpdateFrames()
