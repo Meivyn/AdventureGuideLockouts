@@ -102,33 +102,6 @@ AddOn.worldBosses = {
     }
 }
 
-function GetAvailableWorldBosses()
-    for instanceIndex = 1, #AddOn.worldBosses do
-        local encounters = AddOn.worldBosses[instanceIndex].encounters
-        for encounterIndex = 1, #encounters do
-            local encounter = encounters[encounterIndex]
-
-            local isAvailable = true
-            if instanceIndex == 5 and encounterIndex == 4 then
-                isAvailable = AddOn.isStromgardeAvailable
-            elseif instanceIndex == 5 and encounterIndex == 8 then
-                isAvailable = AddOn.isDarkshoreAvailable
-            elseif instanceIndex >= 5 then
-                isAvailable = C_TaskQuest.GetQuestTimeLeftMinutes(encounter.questID) ~= nil
-            end
-
-            local bossName
-            if not encounter.encounterID then
-                bossName = select(2, GetAchievementInfo(7333)) -- Localize "The Four Celestials"
-            else
-                bossName = EJ_GetEncounterInfo(encounter.encounterID)
-            end
-
-            vdt(isAvailable, bossName)
-        end
-    end
-end
-
 function AddOn:RequestWarfrontInfo()
     local stromgardeState = C_ContributionCollector.GetState(self.playerFaction == "Horde" and 116 or 11)
     local darkshoreState = C_ContributionCollector.GetState(self.playerFaction == "Horde" and 117 or 118)
