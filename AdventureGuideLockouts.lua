@@ -139,21 +139,24 @@ end
 ---@param instanceIndex number
 ---@return string, number, boolean, string, number, number, number @ instanceName, instanceID, locked, difficultyName, numEncounters, numCompleted, difficulty
 function AddOn:GetSavedWorldBossInfo(instanceIndex)
-    local instanceID = self.worldBosses[instanceIndex].instanceID
+    local instance = self.worldBosses[instanceIndex]
+    local instanceID = instance.instanceID
     local instanceName = EJ_GetInstanceInfo(instanceID)
     local difficulty = 2
     local locked = false
     local difficultyName = RAID_INFO_WORLD_BOSS
-    local numEncounters = #self.worldBosses[instanceIndex].encounters
+    local numEncounters = #instance.encounters
     local numCompleted = 0
 
     for encounterIndex = 1, numEncounters do
-        local encounter = self.worldBosses[instanceIndex].encounters[encounterIndex]
+        local encounter = instance.encounters[encounterIndex]
         local isDefeated = C_QuestLog.IsQuestFlaggedCompleted(encounter.questID)
-        if instanceIndex == 5 and encounterIndex == 4 then
-            isDefeated = isDefeated and self.isStromgardeAvailable
-        elseif instanceIndex == 5 and encounterIndex == 8 then
-            isDefeated = isDefeated and self.isDarkshoreAvailable
+        if instanceIndex == 5 then
+            if encounterIndex == 4 then
+                isDefeated = isDefeated and self.isStromgardeAvailable
+            elseif encounterIndex == 5 then
+                isDefeated = isDefeated and self.isDarkshoreAvailable
+            end
         end
         if isDefeated then
             locked = true
@@ -187,6 +190,15 @@ function AddOn:GetInstanceLockout(instanceIndex)
         return
     end
 
+    local encounters = {}
+    for encounterIndex = 1, numEncounters do
+        local bossName, _, isKilled = GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex)
+        encounters[encounterIndex] = {
+            bossName = bossName,
+            isKilled = isKilled
+        }
+    end
+
     local _, _, isHeroic, _, displayHeroic, displayMythic, _, isLFR = GetDifficultyInfo(instanceDifficulty)
     local difficulty = 2
     if displayMythic then
@@ -195,15 +207,6 @@ function AddOn:GetInstanceLockout(instanceIndex)
         difficulty = 3
     elseif isLFR then
         difficulty = 1
-    end
-
-    local encounters = {}
-    for encounterIndex = 1, numEncounters do
-        local bossName, _, isKilled = GetSavedInstanceEncounterInfo(instanceIndex, encounterIndex)
-        tinsert(encounters, {
-            bossName = bossName,
-            isKilled = isKilled
-        })
     end
 
     if instanceID == 1544 then
@@ -238,12 +241,14 @@ function AddOn:GetWorldBossLockout(instanceIndex)
     for encounterIndex = 1, numEncounters do
         local isAvailable = true
         local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
-        if instanceIndex == 5 and encounterIndex == 4 then
-            isAvailable = self.isStromgardeAvailable
-            isKilled = isKilled and isAvailable
-        elseif instanceIndex == 5 and encounterIndex == 8 then
-            isAvailable = self.isDarkshoreAvailable
-            isKilled = isKilled and isAvailable
+        if instanceIndex == 5 then
+            if encounterIndex == 4 then
+                isAvailable = self.isStromgardeAvailable
+                isKilled = isKilled and isAvailable
+            elseif encounterIndex == 5 then
+                isAvailable = self.isDarkshoreAvailable
+                isKilled = isKilled and isAvailable
+            end
         elseif instanceIndex >= 5 then
             isAvailable = C_TaskQuest.GetQuestTimeLeftMinutes(self.worldBosses[instanceIndex].encounters[encounterIndex].questID) ~= nil
         end
@@ -285,6 +290,36 @@ function AddOn:UpdateSavedInstances()
     end
 end
 
+local function ShowTooltip(frame)
+    GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
+    GameTooltip:SetText(frame.instanceInfo.instanceName .. " (" .. frame.instanceInfo.difficultyName .. ")")
+    for i = 1, #frame.instanceInfo.encounters do
+        local encounter = frame.instanceInfo.encounters[i]
+        local r, g, b
+        local bossStatus
+        if encounter.isKilled then
+            r, g, b = RED_FONT_COLOR:GetRGB()
+            bossStatus = BOSS_DEAD
+        elseif encounter.isAvailable == false or frame.instanceInfo.complete then
+            r, g, b = GRAY_FONT_COLOR:GetRGB()
+            bossStatus = QUEUE_TIME_UNAVAILABLE
+        else
+            r, g, b = GREEN_FONT_COLOR:GetRGB()
+            bossStatus = BOSS_ALIVE
+        end
+        -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
+        local isAvailableForFaction = i == 1 and AddOn.playerFaction == "Horde" or i == 2 and AddOn.playerFaction == "Alliance"
+        if frame.instanceInfo.instanceID ~= 1822 or i ~= 1 and i ~= 2 or isAvailableForFaction then
+            GameTooltip:AddDoubleLine(encounter.bossName, bossStatus, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, r, g, b)
+        end
+    end
+    GameTooltip:Show()
+end
+
+local function HideTooltip()
+    GameTooltip:Hide()
+end
+
 ---@param button Button
 ---@param orderIndex number
 ---@param difficulty number
@@ -292,34 +327,8 @@ end
 function AddOn:CreateStatusFrame(button, orderIndex, difficulty)
     local statusFrame = CreateFrame("Frame", nil, button)
     statusFrame:SetSize(38, 46)
-    statusFrame:SetScript("OnEnter", function(frame)
-        GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
-        GameTooltip:SetText(frame.instanceInfo.instanceName .. " (" .. frame.instanceInfo.difficultyName .. ")")
-        for i = 1, #frame.instanceInfo.encounters do
-            local encounter = frame.instanceInfo.encounters[i]
-            local r, g, b
-            local bossStatus
-            if encounter.isKilled then
-                r, g, b = RED_FONT_COLOR:GetRGB()
-                bossStatus = BOSS_DEAD
-            elseif encounter.isAvailable == false or frame.instanceInfo.complete then
-                r, g, b = GRAY_FONT_COLOR:GetRGB()
-                bossStatus = QUEUE_TIME_UNAVAILABLE
-            else
-                r, g, b = GREEN_FONT_COLOR:GetRGB()
-                bossStatus = BOSS_ALIVE
-            end
-            -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
-            local isAvailableForFaction = (self.playerFaction == "Horde" and i == 1) or (self.playerFaction == "Alliance" and i == 2)
-            if frame.instanceInfo.instanceID ~= 1822 or i ~= 1 and i ~= 2 or isAvailableForFaction then
-                GameTooltip:AddDoubleLine(encounter.bossName, bossStatus, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, r, g, b)
-            end
-        end
-        GameTooltip:Show()
-    end)
-    statusFrame:SetScript("OnLeave", function()
-        GameTooltip:Hide()
-    end)
+    statusFrame:SetScript("OnEnter", ShowTooltip)
+    statusFrame:SetScript("OnLeave", HideTooltip)
 
     statusFrame.texture = statusFrame:CreateTexture(nil, "ARTWORK")
     statusFrame.texture:SetPoint("CENTER")
