@@ -281,8 +281,7 @@ local function ShowTooltip(frame)
             bossStatus = BOSS_ALIVE
         end
         -- Fixes https://github.com/Meivyn/AdventureGuideLockouts/issues/1
-        local isAvailableForFaction = i == 1 and AddOn.playerFaction == "Horde" or i == 2 and AddOn.playerFaction == "Alliance"
-        if frame.instanceInfo.instanceID ~= 1822 or i ~= 1 and i ~= 2 or isAvailableForFaction then
+        if frame.instanceInfo.instanceID ~= 1822 or i ~= 1 and i ~= 2 or encounter.isKilled then
             GameTooltip:AddDoubleLine(encounter.bossName, bossStatus, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, r, g, b)
         end
     end
