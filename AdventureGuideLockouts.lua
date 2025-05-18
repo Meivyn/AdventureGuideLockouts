@@ -98,6 +98,7 @@ AddOn.worldBosses = {
             { encounterID = 2635, questID = 82653 }, -- Aggregation of Horrors
             { encounterID = 2636, questID = 81653 }, -- Shurrai, Atrocity of the Undersea
             { encounterID = 2637, questID = 81630 }, -- Kordac, the Dormant Protector
+            { encounterID = 2683, questID = 85088 }  -- The Gobfather
         }
     }
 }
