@@ -5,6 +5,6 @@
 ## Notes-ruRU: Добавляет индикаторы состояния подземелья в Путеводитель по приключениям.
 ## Author: alex_chrome, Meivyn
 ## IconTexture: Interface\EncounterJournal\UI-EJ-PortraitIcon
-## Version: 1.5.2
+## Version: 1.5.3
 
 AdventureGuideLockouts.lua
