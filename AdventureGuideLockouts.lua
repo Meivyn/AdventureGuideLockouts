@@ -234,7 +234,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
                 isKilled = isKilled and isAvailable
             end
         elseif instanceIndex >= 5 then
-            isAvailable = C_TaskQuest.GetQuestTimeLeftMinutes(self.worldBosses[instanceIndex].encounters[encounterIndex].questID) ~= nil
+            isAvailable = C_TaskQuest.IsActive(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
         end
         encounters[encounterIndex] = {
             bossName = bossName,
