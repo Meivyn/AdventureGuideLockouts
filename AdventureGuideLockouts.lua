@@ -98,7 +98,17 @@ AddOn.worldBosses = {
             { encounterID = 2635, questID = 82653 }, -- Aggregation of Horrors
             { encounterID = 2636, questID = 81653 }, -- Shurrai, Atrocity of the Undersea
             { encounterID = 2637, questID = 81630 }, -- Kordac, the Dormant Protector
-            { encounterID = 2683, questID = 85088 }  -- The Gobfather
+            { encounterID = 2683, questID = 85088 }, -- The Gobfather
+            { encounterID = 2762, questID = 87354 }  -- Reshanor, The Untethered
+        }
+    },
+    {
+        instanceID = 1312,                           -- Midnight
+        encounters = {
+            { encounterID = 2827, questID = 92560 }, -- Lu'ashal
+            { encounterID = 2782, questID = 92123 }, -- Cragpine
+            { encounterID = 2828, questID = 92636 }, -- Predaxas
+            { encounterID = 2829, questID = 92034 }  -- Thorm'belan
         }
     }
 }
@@ -224,7 +234,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
                 isKilled = isKilled and isAvailable
             end
         elseif instanceIndex >= 5 then
-            isAvailable = C_TaskQuest.GetQuestTimeLeftMinutes(self.worldBosses[instanceIndex].encounters[encounterIndex].questID) ~= nil
+            isAvailable = C_TaskQuest.IsActive(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
         end
         encounters[encounterIndex] = {
             bossName = bossName,
