@@ -244,6 +244,9 @@ function AddOn:GetWorldBossLockout(instanceIndex)
             isAvailable = true
         elseif instanceIndex == 4 and not foundActiveInvasionBoss then
             isAvailable = IsInvasionBossActive(string.lower(bossName))
+            if isAvailable then
+                foundActiveInvasionBoss = true
+            end
         else
             isAvailable = C_TaskQuest.IsActive(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
             if instanceIndex == 5 then
