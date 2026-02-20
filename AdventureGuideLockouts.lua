@@ -212,6 +212,23 @@ function AddOn:GetInstanceLockout(instanceIndex)
     }
 end
 
+---@param bossName string
+---@return boolean
+local function IsInvasionBossActive(bossName)
+    local zones = C_Map.GetMapChildrenInfo(905, Enum.UIMapType.Zone)
+    for zoneIndex = 1, #zones do
+        local mapID = zones[zoneIndex].mapID
+        local poiIDs = C_AreaPoiInfo.GetAreaPOIForMap(mapID)
+        for poiIndex = 1, #poiIDs do
+            local poi = C_AreaPoiInfo.GetAreaPOIInfo(mapID, poiIDs[poiIndex])
+            if poi.atlasName == "poi-rift2" and string.find(string.lower(poi.description), bossName, 1, true) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 ---@param instanceIndex number
 ---@return table @ instanceLockout
 function AddOn:GetWorldBossLockout(instanceIndex)
@@ -222,26 +239,38 @@ function AddOn:GetWorldBossLockout(instanceIndex)
 
     local encounters = {}
     local numAvailableEncounters = 0
+
+    local foundActiveInvasionBoss = false
     for encounterIndex = 1, numEncounters do
-        local isAvailable = true
         local bossName, isKilled = self:GetSavedWorldBossEncounterInfo(instanceIndex, encounterIndex)
-        if instanceIndex == 5 then
-            if encounterIndex == 4 then
-                isAvailable = self.isStromgardeAvailable
-                isKilled = isKilled and isAvailable
-            elseif encounterIndex == 8 then
-                isAvailable = self.isDarkshoreAvailable
-                isKilled = isKilled and isAvailable
-            end
-        elseif instanceIndex >= 5 then
+        local isAvailable = false
+
+        if instanceIndex <= 2 then
+            isAvailable = true
+        elseif instanceIndex == 4 and not foundActiveInvasionBoss then
+            isAvailable = IsInvasionBossActive(string.lower(bossName))
+        else
             isAvailable = C_TaskQuest.IsActive(self.worldBosses[instanceIndex].encounters[encounterIndex].questID)
+            if instanceIndex == 5 then
+                if encounterIndex == 4 then
+                    isAvailable = self.isStromgardeAvailable
+                    isKilled = isKilled and isAvailable
+                elseif encounterIndex == 8 then
+                    isAvailable = self.isDarkshoreAvailable
+                    isKilled = isKilled and isAvailable
+                end
+            end
         end
+
         encounters[encounterIndex] = {
             bossName = bossName,
             isKilled = isKilled,
             isAvailable = isAvailable
         }
-        numAvailableEncounters = (isAvailable or isKilled) and numAvailableEncounters + 1 or numAvailableEncounters
+
+        if isAvailable or isKilled then
+            numAvailableEncounters = numAvailableEncounters + 1
+        end
     end
 
     return {
