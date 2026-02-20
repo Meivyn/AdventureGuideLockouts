@@ -81,6 +81,7 @@ AddOn.worldBosses = {
         }
     },
     {
+        -- TODO: Will show up on Blackrock Foundry.
         instanceID = 1205,                           -- Dragon Isles
         encounters = {
             { encounterID = 2515, questID = 69929 }, -- Strunraan, The Sky's Misery
@@ -121,13 +122,12 @@ function AddOn:RequestWarfrontInfo()
 end
 
 ---@param instanceIndex number
----@return string, number, boolean, string, number, number, number @ instanceName, instanceID, locked, difficultyName, numEncounters, numCompleted, difficulty
+---@return string, number, string, number, number, number @ instanceName, instanceID, difficultyName, numEncounters, numCompleted, difficulty
 function AddOn:GetSavedWorldBossInfo(instanceIndex)
     local instance = self.worldBosses[instanceIndex]
     local instanceID = instance.instanceID
     local instanceName = EJ_GetInstanceInfo(instanceID)
     local difficulty = 2
-    local locked = false
     local difficultyName = RAID_INFO_WORLD_BOSS
     local numEncounters = #instance.encounters
     local numCompleted = 0
@@ -143,12 +143,11 @@ function AddOn:GetSavedWorldBossInfo(instanceIndex)
             end
         end
         if isDefeated then
-            locked = true
             numCompleted = numCompleted + 1
         end
     end
 
-    return instanceName, instanceID, locked, difficultyName, numEncounters, numCompleted, difficulty
+    return instanceName, instanceID, difficultyName, numEncounters, numCompleted, difficulty
 end
 
 ---@param instanceIndex number
@@ -232,11 +231,7 @@ end
 ---@param instanceIndex number
 ---@return table @ instanceLockout
 function AddOn:GetWorldBossLockout(instanceIndex)
-    local instanceName, instanceID, locked, difficultyName, numEncounters, numCompleted, difficulty = self:GetSavedWorldBossInfo(instanceIndex)
-    if not locked then
-        return
-    end
-
+    local instanceName, instanceID, difficultyName, numEncounters, numCompleted, difficulty = self:GetSavedWorldBossInfo(instanceIndex)
     local encounters = {}
     local numAvailableEncounters = 0
 
