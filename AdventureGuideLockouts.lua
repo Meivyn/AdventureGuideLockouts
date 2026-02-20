@@ -138,7 +138,7 @@ function AddOn:GetSavedWorldBossInfo(instanceIndex)
         if instanceIndex == 5 then
             if encounterIndex == 4 then
                 isDefeated = isDefeated and self.isStromgardeAvailable
-            elseif encounterIndex == 5 then
+            elseif encounterIndex == 8 then
                 isDefeated = isDefeated and self.isDarkshoreAvailable
             end
         end
@@ -229,7 +229,7 @@ function AddOn:GetWorldBossLockout(instanceIndex)
             if encounterIndex == 4 then
                 isAvailable = self.isStromgardeAvailable
                 isKilled = isKilled and isAvailable
-            elseif encounterIndex == 5 then
+            elseif encounterIndex == 8 then
                 isAvailable = self.isDarkshoreAvailable
                 isKilled = isKilled and isAvailable
             end
