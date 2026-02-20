@@ -423,27 +423,28 @@ function AddOn:UpdateInstanceStatusFrame(button, elementData)
     self:UpdateStatusFramePosition(orderIndex)
 end
 
-local function UpdateFrames()
-    EncounterJournal.instanceSelect.ScrollBox:ForEachFrame(function(frame, elementData)
-        AddOn:UpdateInstanceStatusFrame(frame, elementData)
-    end)
+local function UpdateFrame(frame, elementData)
+    AddOn:UpdateInstanceStatusFrame(frame, elementData)
 end
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("BOSS_KILL")
 frame:RegisterEvent("UPDATE_INSTANCE_INFO")
-frame:SetScript("OnEvent", function(_, event, arg1)
+frame:SetScript("OnEvent", function(_, event, ...)
     if event == "ADDON_LOADED" then
-        if arg1 == ADDON_NAME then
+        local addonName = ...
+        if addonName == ADDON_NAME then
             local playerFaction = UnitFactionGroup("player")
             AddOn.worldBosses[5].encounters[4].encounterID = playerFaction == "Horde" and 2212 or 2213
             AddOn.worldBosses[5].encounters[4].questID =  playerFaction == "Horde" and 52848 or 52847
             AddOn.worldBosses[5].encounters[8].encounterID = playerFaction == "Horde" and 2329 or 2345
             AddOn.worldBosses[5].encounters[8].questID =  playerFaction == "Horde" and 54896 or 54895
             AddOn.playerFaction = playerFaction
-        elseif arg1 == "Blizzard_EncounterJournal" then
-            hooksecurefunc("EncounterJournal_ListInstances", UpdateFrames)
+        elseif addonName == "Blizzard_EncounterJournal" then
+            hooksecurefunc("EncounterJournal_ListInstances", function()
+                EncounterJournal.instanceSelect.ScrollBox:ForEachFrame(UpdateFrame)
+            end)
         end
     elseif event == "BOSS_KILL" then
         RequestRaidInfo()
